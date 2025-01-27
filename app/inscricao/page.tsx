@@ -9,7 +9,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
-import { format, parse } from "date-fns"
 
 export default function RegistrationForm() {
   const router = useRouter()
@@ -40,18 +39,10 @@ export default function RegistrationForm() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
-    if (name === "dataNascimento") {
-      const formattedDate = formatDateForDisplay(value)
-      setFormData((prevState) => ({
-        ...prevState,
-        [name]: formattedDate,
-      }))
-    } else {
-      setFormData((prevState) => ({
-        ...prevState,
-        [name]: type === "checkbox" ? checked : value,
-      }))
-    }
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: type === "checkbox" ? checked : value,
+    }))
   }
 
   const handleSelectChange = (name, value) => {
@@ -63,39 +54,27 @@ export default function RegistrationForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const submissionData = {
-      ...formData,
-      dataNascimento: formatDateForSubmit(formData.dataNascimento),
-    }
+
+    const [year, month, day] = formData.dataNascimento.split("-");
+    const formattedDate = `${day}/${month}/${year}`;
+
     const message = `Novo registro para a 5ª Copa Magé de Jiu-Jitsu:
-      Nome: ${submissionData.nome}
-      Data de Nascimento: ${submissionData.dataNascimento}
-      Categoria de Peso Gi: ${submissionData.categoriaPeso}
-      Categoria de Peso No-Gi: ${submissionData.categoriaPesoNoGi}
-      Faixa: ${submissionData.faixa}
-      Equipe: ${submissionData.equipe}
-      Telefone: ${submissionData.telefone}
-      Email: ${submissionData.email}
-      Campeonato Gi: ${submissionData.campeonatoGi ? "Sim" : "Não"}
-      Campeonato No Gi: ${submissionData.campeonatoNoGi ? "Sim" : "Não"}
-      Luta Casada: ${submissionData.lutaCasada ? "Sim" : "Não"}
-      Festival Kids: ${submissionData.festivalKids ? "Sim" : "Não"}`
+      Nome: ${formData.nome}
+      Data de Nascimento: ${formattedDate}
+      Categoria de Peso Gi: ${formData.categoriaPeso}
+      Categoria de Peso No-Gi: ${formData.categoriaPesoNoGi}
+      Faixa: ${formData.faixa}
+      Equipe: ${formData.equipe}
+      Telefone: ${formData.telefone}
+      Email: ${formData.email}
+      Campeonato Gi: ${formData.campeonatoGi ? "Sim" : "Não"}
+      Campeonato No Gi: ${formData.campeonatoNoGi ? "Sim" : "Não"}
+      Luta Casada: ${formData.lutaCasada ? "Sim" : "Não"}
+      Festival Kids: ${formData.festivalKids ? "Sim" : "Não"}`
 
     const whatsappUrl = `https://api.whatsapp.com/send?phone=5521988708875&text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, "_blank")
     router.push("/confirmacao")
-  }
-
-  const formatDateForDisplay = (date: string) => {
-    if (!date) return ""
-    const parsedDate = parse(date, "yyyy-MM-dd", new Date())
-    return format(parsedDate, "dd/MM/yyyy")
-  }
-
-  const formatDateForSubmit = (date: string) => {
-    if (!date) return ""
-    const [day, month, year] = date.split("/")
-    return `${year}-${month}-${day}`
   }
 
   return (
@@ -331,10 +310,10 @@ export default function RegistrationForm() {
             <Label className="text-xl font-semibold mb-4 block">QR Code para Pagamento (PIX)</Label>
             <div className="bg-white p-6 rounded-xl flex flex-col items-center">
               <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/qrcode-pix-lsOSBji4XO7Naw27oue0XJkgG1lXce.png"
+                src="/qrcode-pix.png"
                 alt="QR Code PIX"
-                width={200}
-                height={200}
+                width={400}
+                height={400}
               />
               <p className="text-lg text-center mt-4 text-black">Chave PIX: (21) 98870-8875</p>
               <Button onClick={handleCopyPix} className="mt-4 bg-red-600 hover:bg-red-700 text-white">
@@ -361,4 +340,3 @@ export default function RegistrationForm() {
     </div>
   )
 }
-

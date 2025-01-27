@@ -4,6 +4,9 @@ import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
+import Slider from "react-slick"
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { CalendarIcon, MapPinIcon, TrophyIcon, DollarSignIcon, UsersIcon, StarIcon } from "lucide-react"
@@ -28,10 +31,46 @@ export default function Home() {
     setTimeout(() => setCopySuccess(false), 2000)
   }
 
+  const carouselSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    centerPadding: "10px",
+    responsive: [
+      {
+        breakpoint: 1024, // Tela menor que 1024px
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+      {
+        breakpoint: 768, // Tela menor que 768px
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+      {
+        breakpoint: 480, // Dispositivos pequenos (smartphones menores)
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      }
+    ],
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-900 via-red-800 to-black text-white">
-      <header className={`fixed w-full z-10 transition-all duration-300 ${isScrolled ? "bg-red-900 shadow-lg" : ""}`}>
-        <nav className="container mx-auto py-4 px-6 flex flex-wrap justify-between items-center">
+      <header
+        className={`fixed w-full z-10 transition-all duration-300 bg-red-900 lg:bg-transparent ${isScrolled ? "lg:bg-red-900 shadow-lg" : ""}`}
+      >
+        <nav
+          className={`container mx-auto py-4 px-6 flex flex-wrap justify-between items-center ${isScrolled ? "bg-red-900" : ""} lg:bg-transparent`}
+        >
           <h1 className="text-2xl font-bold">Copa Magé de Jiu-Jitsu</h1>
           <button
             className="lg:hidden text-white focus:outline-none"
@@ -94,7 +133,9 @@ export default function Home() {
               </div>
               <div className="flex items-center justify-center bg-red-800 rounded-full px-6 py-3 shadow-lg">
                 <MapPinIcon className="mr-3" aria-hidden="true" />
-                <span className="text-lg">Poliesportivo Renato Medeiros</span>
+                <a href="#localizacao" className="text-lg hover:text-red-300 transition-colors">
+                  Poliesportivo Renato Medeiros
+                </a>
               </div>
             </motion.div>
             <motion.div
@@ -129,17 +170,49 @@ export default function Home() {
                 </p>
               </div>
               <div className="relative h-64 md:h-96">
-                <Image
-                  src="/placeholder.svg"
-                  alt="Imagem representativa da Copa Magé de Jiu-Jitsu"
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-lg shadow-2xl"
-                />
+                <Slider {...carouselSettings} className="h-full">
+                  <div className="relative h-64 md:h-96">
+                    <Image
+                      src="/evento.jpg?"
+                      alt="Imagem representativa da Copa Magé de Jiu-Jitsu 1"
+                      layout="fill"
+                      objectFit="contain"
+                      className="rounded-lg shadow-2xl"
+                    />
+                  </div>
+                  <div className="relative h-64 md:h-96">
+                    <Image
+                      src="/copa.jpg?"
+                      alt="Imagem representativa da Copa Magé de Jiu-Jitsu 2"
+                      layout="fill"
+                      objectFit="contain"
+                      className="rounded-lg shadow-2xl"
+                    />
+                  </div>
+                  <div className="relative h-64 md:h-96">
+                    <Image
+                      src="/copamage.png?"
+                      alt="Imagem representativa da Copa Magé de Jiu-Jitsu"
+                      layout="fill"
+                      objectFit="contain"
+                      className="rounded-lg shadow-2xl"
+                    />
+                  </div>
+                  <div className="relative h-64 md:h-96">
+                    <Image
+                      src="/hazaq.png?"
+                      alt="Imagem representativa da Equipe HAZÁQ Jiu-Jitsu"
+                      layout="fill"
+                      objectFit="contain"
+                      className="rounded-lg shadow-2xl"
+                    />
+                  </div>
+                </Slider>
               </div>
             </div>
           </div>
         </section>
+
 
         <section id="destaques" className="py-20">
           <div className="container mx-auto px-6">
@@ -336,10 +409,9 @@ export default function Home() {
               </svg>
             </a>
           </div>
-          <p className="text-sm text-red-200/80 mt-8">© 2025 Copa Magé de Jiu-Jitsu. Todos os direitos reservados.</p>
+          <p className="text-sm text-red-200/80 mt-8">&copy; {new Date().getFullYear()} Copa Magé de Jiu-Jitsu. Todos os direitos reservados.</p>
         </div>
       </footer>
     </div>
   )
 }
-
