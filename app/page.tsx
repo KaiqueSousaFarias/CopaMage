@@ -31,6 +31,16 @@ export default function Home() {
     setTimeout(() => setCopySuccess(false), 2000)
   }
 
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  const images = [
+    "/evento.jpg?",
+    "/copa.jpg?",
+    "/copamage.png?",
+    "/hazaq.png?",
+  ]
+
   const carouselSettings = {
     dots: true,
     infinite: true,
@@ -40,6 +50,7 @@ export default function Home() {
     autoplay: true,
     autoplaySpeed: 3000,
     centerPadding: "10px",
+    afterChange: (index) => setCurrentImageIndex(index),
     responsive: [
       {
         breakpoint: 1024, // Tela menor que 1024px
@@ -62,6 +73,13 @@ export default function Home() {
       }
     ],
   }
+
+  const openModal = (index) => {
+    setCurrentImageIndex(index)
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => setIsModalOpen(false)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-900 via-red-800 to-black text-white">
@@ -153,65 +171,70 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="sobre" className="py-20 bg-red-900">
+        {/* Seção com o carrossel */}
+        <section id="sobre" className="py-20 bg-gradient-to-br from-red-900 via-red-800 to-black text-white">
           <div className="container mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Sobre o Evento</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Sobre o Evento</h2>
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <p className="text-lg mb-6">
-                  A Copa Magé de Jiu-Jitsu é um dos eventos mais aguardados do calendário esportivo da região. Em sua 5ª
-                  edição, o torneio promete trazer ainda mais emoção e competitividade, reunindo atletas de todas as
-                  categorias em um espetáculo de técnica, força e estratégia.
+              <div className="space-y-6 text-lg leading-relaxed">
+                <p>
+                A Copa Magé de Jiu-Jitsu é um dos eventos mais aguardados do calendário esportivo da região. Em sua 5ª edição, o torneio promete trazer ainda mais emoção e competitividade, reunindo atletas de todas as categorias em um espetáculo de técnica, força e estratégia.
                 </p>
-                <p className="text-lg">
-                  Com uma estrutura de primeira linha e organização impecável, a Copa Magé oferece aos participantes e
-                  espectadores uma experiência única, promovendo o espírito esportivo e o desenvolvimento do Jiu-Jitsu
-                  na região.
+                <p>
+                Com uma estrutura de primeira linha e organização impecável, a Copa Magé oferece aos participantes e espectadores uma experiência única, promovendo o espírito esportivo e o desenvolvimento do Jiu-Jitsu na região.
                 </p>
               </div>
-              <div className="relative h-64 md:h-96">
-                <Slider {...carouselSettings} className="h-full">
-                  <div className="relative h-64 md:h-96">
-                    <Image
-                      src="/evento.jpg?"
-                      alt="Imagem representativa da Copa Magé de Jiu-Jitsu 1"
-                      layout="fill"
-                      objectFit="contain"
-                      className="rounded-lg shadow-2xl"
-                    />
-                  </div>
-                  <div className="relative h-64 md:h-96">
-                    <Image
-                      src="/copa.jpg?"
-                      alt="Imagem representativa da Copa Magé de Jiu-Jitsu 2"
-                      layout="fill"
-                      objectFit="contain"
-                      className="rounded-lg shadow-2xl"
-                    />
-                  </div>
-                  <div className="relative h-64 md:h-96">
-                    <Image
-                      src="/copamage.png?"
-                      alt="Imagem representativa da Copa Magé de Jiu-Jitsu"
-                      layout="fill"
-                      objectFit="contain"
-                      className="rounded-lg shadow-2xl"
-                    />
-                  </div>
-                  <div className="relative h-64 md:h-96">
-                    <Image
-                      src="/hazaq.png?"
-                      alt="Imagem representativa da Equipe HAZÁQ Jiu-Jitsu"
-                      layout="fill"
-                      objectFit="contain"
-                      className="rounded-lg shadow-2xl"
-                    />
-                  </div>
+              <div className="relative h-64 md:h-96 overflow-hidden rounded-lg shadow-xl">
+                <Slider {...carouselSettings}>
+                  {images.map((src, index) => (
+                    <div key={index} className="relative h-64 md:h-96 cursor-pointer">
+                      <Image
+                        src={src}
+                        alt={`Imagem ${index + 1}`}
+                        layout="fill"
+                        objectFit="contain"
+                        className="rounded-lg"
+                        onClick={() => openModal(index)} // Abre a modal ao clicar
+                      />
+                    </div>
+                  ))}
                 </Slider>
               </div>
             </div>
           </div>
         </section>
+
+        {/* Modal */}
+        {isModalOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+            <div className="relative w-full max-w-4xl h-96 rounded-lg p-6">
+              <button
+                className="absolute top-4 right-4 text-black text-2xl font-bold"
+                onClick={closeModal}
+              >
+                ✖
+              </button>
+              <Slider
+                {...carouselSettings}
+                initialSlide={currentImageIndex} // Define a imagem inicial
+              >
+                {images.map((src, index) => (
+                  <div key={index} className="relative h-64 md:h-96">
+                    <Image
+                      src={src}
+                      alt={`Imagem ${index + 1}`}
+                      layout="fill"
+                      objectFit="contain"
+                      className="rounded-lg"
+                    />
+                  </div>
+                ))}
+              </Slider>
+            </div>
+          </div>
+        )}
+    
+
 
 
         <section id="destaques" className="py-20">
@@ -394,7 +417,7 @@ export default function Home() {
               </svg>
             </a>
             <a
-              href="https://www.instagram.com/ezequielfariasjiujitsu/"
+              href="https://www.instagram.com/hazaq_jiujitsu/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-red-300 transition-colors"
