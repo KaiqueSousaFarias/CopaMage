@@ -15,6 +15,9 @@ export default function ConfirmationPage() {
         <p className="text-lg sm:text-xl mb-12">
           Lembre-se de efetuar o pagamento utilizando o QR Code PIX fornecido no formulário de inscrição.
         </p>
+        <p className="text-lg sm:text-xl mb-12">
+          Verifique se a mensagem foi enviada para o WhatsApp +55 (21) 9 8418-4135 ~Ezequiel Farias.
+        </p>
         <Button
           asChild
           className="w-full bg-red-600 hover:bg-red-700 text-white text-xl font-bold py-4 rounded-xl transition-all duration-300 transform hover:scale-105"

@@ -90,6 +90,7 @@ export default function Home() {
           className={`container mx-auto py-4 px-6 flex flex-wrap justify-between items-center ${isScrolled ? "bg-red-900" : ""} lg:bg-transparent`}
         >
           <h1 className="text-2xl font-bold">Copa Magé de Jiu-Jitsu</h1>
+          
           <button
             className="lg:hidden text-white focus:outline-none"
             onClick={() => document.getElementById("mobile-menu")?.classList.toggle("hidden")}

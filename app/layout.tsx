@@ -17,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={inter.className}>{children}</body>
+      <link rel="icon" type="image/png" href="/hazaq.png" />
     </html>
   )
 }

@@ -83,6 +83,9 @@ export default function RegistrationForm() {
         <h1 className="text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-red-100 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
           Formulário de Inscrição
         </h1>
+        <p className="text-sm text-red-300 mb-4 text-center">
+        &#9888; As mensagens enviadas por este formulário serão encaminhadas para o WhatsApp. Certifique-se de que o aplicativo esteja conectado para o envio funcionar corretamente.
+        </p>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <Label htmlFor="nome" className="text-lg mb-2 block">
@@ -330,6 +333,9 @@ export default function RegistrationForm() {
           >
             Confirmar Inscrição
           </Button>
+          <p className="text-sm text-red-300 mt-4 text-center">
+            &#9888; Certifique-se de que o WhatsApp esteja conectado para que o envio da mensagem seja realizado com sucesso.
+          </p>
         </form>
         <div className="mt-8 text-center">
           <Link href="/" className="text-red-300 hover:text-red-100 text-lg transition-colors duration-300">
