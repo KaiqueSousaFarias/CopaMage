@@ -25,6 +25,10 @@ export default function ConfirmationPage() {
           </a><br/>
           ~Ezequiel Farias.
         </p>
+        <p className="text-lg sm:text-xl mb-12">
+          Caso não consiga enviar para o WhatsApp preencha o formulário novamente nesse link: https://forms.gle/36P89yqsaehyEkFY9
+        </p>
+       
         <Button
           asChild
           className="w-full bg-red-600 hover:bg-red-700 text-white text-xl font-bold py-4 rounded-xl transition-all duration-300 transform hover:scale-105"
