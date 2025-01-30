@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
@@ -34,11 +34,13 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
+  const [menuOpen, setMenuOpen] = useState(false)
+
   const images = [
-    "/evento.jpg?",
-    "/copa.jpg?",
-    "/copamage.png?",
-    "/hazaq.png?",
+    { src: "/evento.jpg", alt: "Evento de Jiu-Jitsu" },
+    { src: "/copa.jpg", alt: "Competição da Copa Magé" },
+    { src: "/copamage.png", alt: "Logo da Copa Magé" },
+    { src: "/hazaq.png", alt: "Banner do Hazaq Jiu-Jitsu" },
   ]
 
   const carouselSettings = {
@@ -51,6 +53,7 @@ export default function Home() {
     autoplaySpeed: 3000,
     centerPadding: "10px",
     afterChange: (index) => setCurrentImageIndex(index),
+    lazyLoad: "progressive", // Melhora performance
     responsive: [
       {
         breakpoint: 1024, // Tela menor que 1024px
@@ -81,6 +84,30 @@ export default function Home() {
 
   const closeModal = () => setIsModalOpen(false)
 
+    // Fechar modal com tecla Esc
+    const handleKeyDown = useCallback((event) => {
+      if (event.key === "Escape") setIsModalOpen(false)
+      if (event.key === "ArrowRight") setCurrentImageIndex((prev) => (prev + 1) % images.length)
+      if (event.key === "ArrowLeft") setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
+    }, [])
+
+    useEffect(() => {
+      const keyHandler = (event) => {
+        if (event.key === "Escape") closeModal()
+        if (event.key === "ArrowRight") setCurrentImageIndex((prev) => (prev + 1) % images.length)
+        if (event.key === "ArrowLeft") setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
+      }
+    
+      if (isModalOpen) {
+        document.addEventListener("keydown", keyHandler)
+      }
+    
+      return () => {
+        document.removeEventListener("keydown", keyHandler)
+      }
+    }, [isModalOpen, images.length])
+    
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-900 via-red-800 to-black text-white">
       <header
@@ -90,10 +117,10 @@ export default function Home() {
           className={`container mx-auto py-4 px-6 flex flex-wrap justify-between items-center ${isScrolled ? "bg-red-900" : ""} lg:bg-transparent`}
         >
           <h1 className="text-2xl font-bold">Copa Magé de Jiu-Jitsu</h1>
-          
+
           <button
             className="lg:hidden text-white focus:outline-none"
-            onClick={() => document.getElementById("mobile-menu")?.classList.toggle("hidden")}
+            onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
             <svg
@@ -106,7 +133,7 @@ export default function Home() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
             </svg>
           </button>
-          <ul id="mobile-menu" className="hidden w-full lg:flex lg:w-auto lg:space-x-6 mt-4 lg:mt-0">
+          <ul className={`w-full lg:flex lg:w-auto lg:space-x-6 mt-4 lg:mt-0 ${menuOpen ? "" : "hidden"}`}>
             {["sobre", "destaques", "valores", "inscricao", "localizacao"].map((item) => (
               <li key={item}>
                 <a
@@ -174,59 +201,66 @@ export default function Home() {
 
         {/* Seção com o carrossel */}
         <section id="sobre" className="py-20 bg-gradient-to-br from-red-900 via-red-800 to-black text-white">
-          <div className="container mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Sobre o Evento</h2>
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6 text-lg leading-relaxed">
-                <p>
+        <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-20">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center">Sobre o Evento</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            
+            {/* Texto do evento */}
+            <div className="space-y-6 text-lg leading-relaxed text-center md:text-left">
+              <p>
                 A Copa Magé de Jiu-Jitsu é um dos eventos mais aguardados do calendário esportivo da região. Em sua 5ª edição, o torneio promete trazer ainda mais emoção e competitividade, reunindo atletas de todas as categorias em um espetáculo de técnica, força e estratégia.
-                </p>
-                <p>
+              </p>
+              <p>
                 Com uma estrutura de primeira linha e organização impecável, a Copa Magé oferece aos participantes e espectadores uma experiência única, promovendo o espírito esportivo e o desenvolvimento do Jiu-Jitsu na região.
-                </p>
-              </div>
-              <div className="relative h-64 md:h-96 overflow-hidden rounded-lg shadow-xl">
-                <Slider {...carouselSettings}>
-                  {images.map((src, index) => (
-                    <div key={index} className="relative h-64 md:h-96 cursor-pointer">
-                      <Image
-                        src={src}
-                        alt={`Imagem ${index + 1}`}
-                        layout="fill"
-                        objectFit="contain"
-                        className="rounded-lg"
-                        onClick={() => openModal(index)} // Abre a modal ao clicar
-                      />
-                    </div>
-                  ))}
-                </Slider>
-              </div>
+              </p>
             </div>
+            
+            {/* Slider Responsivo */}
+            <div className="relative w-full px-2 sm:px-4 md:px-6 lg:px-12 xl:px-16">
+              <Slider {...carouselSettings}>
+                {images.map((img, index) => (
+                  <div
+                    key={index}
+                    className="relative flex justify-center items-center w-full max-h-[250px] sm:max-h-[350px] md:max-h-[450px] lg:max-h-[550px]"
+                  >
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      width={800}
+                      height={500}
+                      className="rounded-lg shadow-lg object-contain w-full h-auto"
+                      onClick={() => openModal(index)} // Abre a modal ao clicar
+                    />
+                  </div>
+                ))}
+              </Slider>
+            </div>
+            
           </div>
-        </section>
+        </div>
+      </section>
+
 
         {/* Modal */}
         {isModalOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-            <div className="relative w-full max-w-4xl h-96 rounded-lg p-6">
-              <button
-                className="absolute top-4 right-4 text-black text-2xl font-bold"
-                onClick={closeModal}
-              >
-                ✖
-              </button>
+          <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
+          onClick={closeModal}
+          >
+            <div className="relative w-full max-w-4xl h-auto p-6 rounded-lg" onClick={(e) => e.stopPropagation()}>
               <Slider
                 {...carouselSettings}
-                initialSlide={currentImageIndex} // Define a imagem inicial
+                initialSlide={currentImageIndex}
               >
-                {images.map((src, index) => (
-                  <div key={index} className="relative h-64 md:h-96">
+                {images.map((img, index) => (
+                  <div key={index} className="relative flex justify-center items-center w-full">
                     <Image
-                      src={src}
-                      alt={`Imagem ${index + 1}`}
-                      layout="fill"
-                      objectFit="contain"
-                      className="rounded-lg"
+                      src={img.src}
+                      alt={img.alt}
+                      layout="responsive"
+                      width={900}
+                      height={600}
+                      className="rounded-lg shadow-lg object-contain w-full h-full"
                     />
                   </div>
                 ))}
@@ -234,7 +268,7 @@ export default function Home() {
             </div>
           </div>
         )}
-    
+
 
 
 
@@ -385,7 +419,6 @@ export default function Home() {
                 width="100%"
                 height="300"
                 style={{ border: 0 }}
-                allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Localização do Evento"

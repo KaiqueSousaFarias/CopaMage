@@ -45,6 +45,15 @@ export default function RegistrationForm() {
     }))
   }
 
+  const handlePhoneChange = (e) => {
+    const formattedPhone = e.target.value
+      .replace(/\D/g, "")
+      .replace(/^(\d{2})(\d)/, "($1) $2")
+      .replace(/(\d{5})(\d)/, "$1-$2")
+
+    setFormData((prevState) => ({ ...prevState, telefone: formattedPhone }))
+  }
+  
   const handleSelectChange = (name, value) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -52,11 +61,15 @@ export default function RegistrationForm() {
     }))
   }
 
+const formatDate = (date) => {
+    if (!date.match(/^\d{4}-\d{2}-\d{2}$/)) return "Data inválida"
+    const [year, month, day] = date.split("-")
+    return `${day}/${month}/${year}`
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
-
-    const [year, month, day] = formData.dataNascimento.split("-");
-    const formattedDate = `${day}/${month}/${year}`;
+    const formattedDate = formatDate(formData.dataNascimento)
 
     const message = `Novo registro para a 5ª Copa Magé de Jiu-Jitsu:
       Nome: ${formData.nome}
@@ -84,7 +97,7 @@ export default function RegistrationForm() {
           Formulário de Inscrição
         </h1>
         <p className="text-sm text-red-300 mb-4 text-center">
-        &#9888; As mensagens enviadas por este formulário serão encaminhadas para o WhatsApp. Certifique-se de que o aplicativo esteja conectado para o envio funcionar corretamente.
+          &#9888; As mensagens enviadas por este formulário serão encaminhadas para o WhatsApp. Certifique-se de que o aplicativo esteja conectado para o envio funcionar corretamente.
         </p>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
@@ -319,7 +332,7 @@ export default function RegistrationForm() {
                 height={400}
               />
               <p className="text-lg text-center mt-4 text-black">Chave PIX: (21) 98870-8875</p>
-              <Button onClick={handleCopyPix} className="mt-4 bg-red-600 hover:bg-red-700 text-white">
+              <Button type="button" onClick={handleCopyPix} className="mt-4 bg-red-600 hover:bg-red-700 text-white">
                 {copySuccess ? "Copiado!" : "Copiar PIX"}
               </Button>
               <p className="text-sm text-black font-bold mt-4 text-center">

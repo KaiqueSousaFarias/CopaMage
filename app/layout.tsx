@@ -2,11 +2,14 @@ import "./globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin-ext"] })
 
 export const metadata: Metadata = {
   title: "5ª Copa Magé de Jiu-Jitsu",
   description: "O melhor evento de lutas casadas, repleto de novidades!",
+  icons: {
+    icon: "/hazaq.png",
+  },
 }
 
 export default function RootLayout({
@@ -17,8 +20,6 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={inter.className}>{children}</body>
-      <link rel="icon" type="image/png" href="/hazaq.png" />
     </html>
   )
 }
-
