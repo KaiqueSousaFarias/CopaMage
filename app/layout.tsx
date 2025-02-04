@@ -1,7 +1,7 @@
 import "./globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import Script from "next/script"
+import AdSense from "../components/AdSense";
 
 const inter = Inter({ subsets: ["latin-ext"] })
 
@@ -19,11 +19,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-      <Script
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7401469931656779"
-          strategy="afterInteractive"
-          crossOrigin="anonymous"
-        />
+        <AdSense pId="ca-pub-7401469931656779" />
       </head>
       <body className={inter.className}>
         {children}
