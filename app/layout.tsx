@@ -19,7 +19,12 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        <AdSense pId="ca-pub-7401469931656779" />
+        <meta name="google-adsense-account" content="ca-pub-7401469931656779" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7401469931656779"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className={inter.className}>
         {children}
