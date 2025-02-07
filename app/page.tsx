@@ -170,6 +170,14 @@ export default function Home() {
     </svg>
   );
 
+  useEffect(() => {
+    const script = document.createElement("script")
+    script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7401469931656779"
+    script.async = true
+    script.crossOrigin = "anonymous"
+    document.head.appendChild(script)
+  }, [])
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-900 via-red-800 to-black text-white">
       <header
@@ -298,6 +306,18 @@ export default function Home() {
           </div>
         </section>
 
+        {/* 🔥 Bloco de anúncio do AdSense */}
+        <div className="flex justify-center my-8">
+          <ins
+            className="adsbygoogle"
+            style={{ display: "block" }}
+            data-ad-client="ca-pub-7401469931656779"
+            data-ad-slot="1234567890" // 🔹 Substitua pelo seu ID de slot
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          />
+        </div>
+        
         <section id="patrocinadores" className="py-12 bg-black bg-opacity-50">
           <div className="container mx-auto px-6">
             <h2 className="text-2xl font-bold mb-8 text-center text-white">
