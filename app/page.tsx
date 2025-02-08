@@ -1,10 +1,18 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
+
+// Extend the Window interface to include adsbygoogle
+declare global {
+  interface Window {
+    adsbygoogle: any[];
+  }
+}
+
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import Slider from "react-slick"
+import Slider, { LazyLoadTypes } from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import { Button } from "@/components/ui/button"
@@ -15,11 +23,10 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [copySuccess, setCopySuccess] = useState(false)
+  const [adsLoaded, setAdsLoaded] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
+    const handleScroll = () => setIsScrolled(window.scrollY > 50)
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -65,8 +72,8 @@ export default function Home() {
     autoplay: true,
     autoplaySpeed: 3000,
     centerPadding: "10px",
-    afterChange: (index) => setCurrentImageIndex(index),
-    lazyLoad: "progressive", // Melhora performance
+    afterChange: (index: number) => setCurrentImageIndex(index),
+    lazyLoad: "ondemand" as LazyLoadTypes, // Melhora performance
     responsive: [
       {
         breakpoint: 1024, // Tela menor que 1024px
@@ -90,7 +97,7 @@ export default function Home() {
     ],
   }
 
-  const openModal = (index) => {
+  const openModal = (index: number) => {
     setCurrentImageIndex(index)
     setIsModalOpen(true)
   }
@@ -98,14 +105,14 @@ export default function Home() {
   const closeModal = () => setIsModalOpen(false)
 
   // Fechar modal com tecla Esc
-  const handleKeyDown = useCallback((event) => {
+  const handleKeyDown = useCallback((event: KeyboardEvent) => {
     if (event.key === "Escape") setIsModalOpen(false)
     if (event.key === "ArrowRight") setCurrentImageIndex((prev) => (prev + 1) % images.length)
     if (event.key === "ArrowLeft") setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
   }, [])
 
   useEffect(() => {
-    const keyHandler = (event) => {
+    const keyHandler = (event: KeyboardEvent) => {
       if (event.key === "Escape") closeModal()
       if (event.key === "ArrowRight") setCurrentImageIndex((prev) => (prev + 1) % images.length)
       if (event.key === "ArrowLeft") setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
@@ -149,7 +156,13 @@ export default function Home() {
     return () => clearInterval(timer)
   }, [])
 
-  const ContactLink = ({ href, icon, text }) => (
+  interface ContactLinkProps {
+    href: string;
+    icon: React.ReactNode;
+    text: string;
+  }
+
+  const ContactLink = ({ href, icon, text }: ContactLinkProps) => (
     <a
       href={href}
       target="_blank"
@@ -171,12 +184,42 @@ export default function Home() {
   );
 
   useEffect(() => {
-    const script = document.createElement("script")
-    script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7401469931656779"
-    script.async = true
-    script.crossOrigin = "anonymous"
-    document.head.appendChild(script)
-  }, [])
+    if (typeof window !== "undefined") {
+      const script = document.createElement("script")
+      script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7401469931656779"
+      script.async = true
+      script.crossOrigin = "anonymous"
+      document.head.appendChild(script)
+
+      script.onload = () => {
+        setTimeout(() => {
+          try {
+            if (window.adsbygoogle && !adsLoaded) {
+              window.adsbygoogle.push({})
+              setAdsLoaded(true)
+            }
+          } catch (e) {
+            console.error("Erro ao carregar AdSense:", e)
+          }
+        }, 2000) // Pequeno delay para evitar conflitos
+      }
+    }
+  }, [adsLoaded])
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.adsbygoogle) {
+      try {
+        if (!adsLoaded) { // 🔥 Só chama .push({}) se ainda não foi carregado
+          window.adsbygoogle.push({});
+          setAdsLoaded(true); // Marca como carregado
+        }
+      } catch (e) {
+        console.error("Erro ao carregar AdSense:", e);
+      }
+    }
+  }, [adsLoaded]);
+
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-900 via-red-800 to-black text-white">
@@ -308,16 +351,20 @@ export default function Home() {
 
         {/* 🔥 Bloco de anúncio do AdSense */}
         <div className="flex justify-center my-8">
-          <ins
-            className="adsbygoogle"
-            style={{ display: "block" }}
-            data-ad-client="ca-pub-7401469931656779"
-            data-ad-slot="1234567890" // 🔹 Substitua pelo seu ID de slot
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-          />
+          <div style={{ minWidth: "300px", minHeight: "250px" }}>
+            <ins
+              className="adsbygoogle"
+              style={{ display: "block", width: "100%", minWidth: "300px", height: "250px" }}
+              data-ad-client="ca-pub-7401469931656779"
+              data-ad-slot="5833023015"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            />
+          </div>
         </div>
-        
+
+
+
         <section id="patrocinadores" className="py-12 bg-black bg-opacity-50">
           <div className="container mx-auto px-6">
             <h2 className="text-2xl font-bold mb-8 text-center text-white">
