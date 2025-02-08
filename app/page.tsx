@@ -21,9 +21,10 @@ import { CalendarIcon, MapPinIcon, TrophyIcon, DollarSignIcon, UsersIcon, StarIc
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 export default function Home() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [copySuccess, setCopySuccess] = useState(false)
-  const [adsLoaded, setAdsLoaded] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
+  const [adsLoaded, setAdsLoaded] = useState(false);
+  const [showAd, setShowAd] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50)
@@ -184,40 +185,36 @@ export default function Home() {
   );
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const script = document.createElement("script")
-      script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7401469931656779"
-      script.async = true
-      script.crossOrigin = "anonymous"
-      document.head.appendChild(script)
+    if (typeof window !== "undefined" && !document.querySelector('script[src*="pagead2.googlesyndication.com"]')) {
+      // Carregar o script do AdSense apenas uma vez
+      const script = document.createElement("script");
+      script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7401469931656779";
+      script.async = true;
+      script.crossOrigin = "anonymous";
+      document.head.appendChild(script);
 
       script.onload = () => {
         setTimeout(() => {
           try {
-            if (window.adsbygoogle && !adsLoaded) {
-              window.adsbygoogle.push({})
-              setAdsLoaded(true)
-            }
+            setShowAd(true); // Agora podemos renderizar o AdSense
           } catch (e) {
-            console.error("Erro ao carregar AdSense:", e)
+            console.error("Erro ao carregar AdSense:", e);
           }
-        }, 2000) // Pequeno delay para evitar conflitos
-      }
+        }, 1000); // Pequeno delay para evitar conflitos
+      };
     }
-  }, [adsLoaded])
+  }, []);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.adsbygoogle) {
+    if (typeof window !== "undefined" && showAd && !adsLoaded) {
       try {
-        if (!adsLoaded) { // 🔥 Só chama .push({}) se ainda não foi carregado
-          window.adsbygoogle.push({});
-          setAdsLoaded(true); // Marca como carregado
-        }
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        setAdsLoaded(true);
       } catch (e) {
-        console.error("Erro ao carregar AdSense:", e);
+        console.error("Erro ao inicializar AdSense:", e);
       }
     }
-  }, [adsLoaded]);
+  }, [showAd, adsLoaded]);
 
 
 
@@ -349,19 +346,21 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 🔥 Bloco de anúncio do AdSense */}
-        <div className="flex justify-center my-8">
-          <div style={{ minWidth: "300px", minHeight: "250px" }}>
-            <ins
-              className="adsbygoogle"
-              style={{ display: "block", width: "100%", minWidth: "300px", height: "250px" }}
-              data-ad-client="ca-pub-7401469931656779"
-              data-ad-slot="5833023015"
-              data-ad-format="auto"
-              data-full-width-responsive="true"
-            />
+        {/* 🔥 Bloco de anúncio do AdSense - Só aparece quando o AdSense estiver carregado */}
+        {showAd && (
+          <div className="flex justify-center my-8">
+            <div style={{ minWidth: "300px", minHeight: "250px" }}>
+              <ins
+                className="adsbygoogle"
+                style={{ display: "block", width: "100%", minWidth: "300px", height: "250px" }}
+                data-ad-client="ca-pub-7401469931656779"
+                data-ad-slot="5833023015"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+              />
+            </div>
           </div>
-        </div>
+        )}
 
 
 
