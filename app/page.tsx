@@ -18,13 +18,10 @@ import "slick-carousel/slick/slick-theme.css"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { CalendarIcon, MapPinIcon, TrophyIcon, DollarSignIcon, UsersIcon, StarIcon, PhoneIcon, MailIcon, } from "lucide-react"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
-  const [adsLoaded, setAdsLoaded] = useState(false);
-  const [showAd, setShowAd] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50)
@@ -184,40 +181,6 @@ export default function Home() {
     </svg>
   );
 
-  useEffect(() => {
-    if (typeof window !== "undefined" && !document.querySelector('script[src*="pagead2.googlesyndication.com"]')) {
-      // Carregar o script do AdSense apenas uma vez
-      const script = document.createElement("script");
-      script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7401469931656779";
-      script.async = true;
-      script.crossOrigin = "anonymous";
-      document.head.appendChild(script);
-
-      script.onload = () => {
-        setTimeout(() => {
-          try {
-            setShowAd(true); // Agora podemos renderizar o AdSense
-          } catch (e) {
-            console.error("Erro ao carregar AdSense:", e);
-          }
-        }, 1000); // Pequeno delay para evitar conflitos
-      };
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined" && showAd && !adsLoaded) {
-      try {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-        setAdsLoaded(true);
-      } catch (e) {
-        console.error("Erro ao inicializar AdSense:", e);
-      }
-    }
-  }, [showAd, adsLoaded]);
-
-
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-900 via-red-800 to-black text-white">
       <header
@@ -345,25 +308,6 @@ export default function Home() {
             </motion.div>
           </div>
         </section>
-
-        {/* 🔥 Bloco de anúncio do AdSense - Só aparece quando o AdSense estiver carregado */}
-        {showAd && (
-          <div className="flex justify-center my-8">
-            <div style={{ minWidth: "300px", minHeight: "250px" }}>
-              <ins
-                className="adsbygoogle"
-                style={{ display: "block", width: "100%", minWidth: "300px", height: "250px" }}
-                data-ad-client="ca-pub-7401469931656779"
-                data-ad-slot="5833023015"
-                data-ad-format="auto"
-                data-full-width-responsive="true"
-              />
-            </div>
-          </div>
-        )}
-
-
-
         <section id="patrocinadores" className="py-12 bg-black bg-opacity-50">
           <div className="container mx-auto px-6">
             <h2 className="text-2xl font-bold mb-8 text-center text-white">
