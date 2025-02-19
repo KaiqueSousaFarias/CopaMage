@@ -50,6 +50,7 @@ export default function Home() {
     { src: "/patrocinadores/love-pet.jpg", alt: "Love Pet - Pet Shop" },
     { src: "/patrocinadores/braddock.jpg", alt: "Braddock da J - Pizza Pré Assada" },
     { src: "/patrocinadores/bazar-brasil.jpg", alt: "Bazar Brasil - Material Elétrico e Hidráulico" },
+    { src: "/patrocinadores/felipe-da-grafica.jpg", alt: "Felipe da Gráfica" },
   ];
 
   const images = [
