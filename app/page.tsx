@@ -1,23 +1,19 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
-
-// Extend the Window interface to include adsbygoogle
-declare global {
-  interface Window {
-    adsbygoogle: any[];
-  }
-}
-
 import Image from "next/image"
 import Link from "next/link"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import Slider, { LazyLoadTypes } from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { CalendarIcon, MapPinIcon, TrophyIcon, DollarSignIcon, UsersIcon, StarIcon, PhoneIcon, MailIcon, } from "lucide-react"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import dynamic from "next/dynamic"
+
+const ReactConfetti = dynamic(() => import("react-confetti"), { ssr: false })
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -127,25 +123,41 @@ export default function Home() {
   }, [isModalOpen, images.length])
 
   const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
+    dias: 0,
+    horas: 0,
+    minutos: 0,
+    segundos: 0,
   })
+  const [eventStatus, setEventStatus] = useState('countdown')  // 'countdown', 'ongoing', 'ended'
+  const [showConfetti, setShowConfetti] = useState(false)
 
   useEffect(() => {
     const eventDate = new Date("2025-03-29T00:00:00")
+    const eventEndDate = new Date("2025-03-29T23:59:59")
 
     const calculateTimeLeft = () => {
-      const difference = +eventDate - +new Date()
+      const now = new Date()
+      const difference = +eventDate - +now
 
       if (difference > 0) {
+        // Evento ainda não começou
         setTimeLeft({
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60),
+          dias: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          horas: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutos: Math.floor((difference / 1000 / 60) % 60),
+          segundos: Math.floor((difference / 1000) % 60),
         })
+        setEventStatus('countdown')
+      } else if (now <= eventEndDate) {
+        // Evento está em andamento
+        setEventStatus('ongoing')
+        if (!showConfetti) {
+          setShowConfetti(true)
+          setTimeout(() => setShowConfetti(false), 5000) // Desativa o confete após 5 segundos
+        }
+      } else {
+        // Evento já encerrou
+        setEventStatus('ended')
       }
     }
 
@@ -153,7 +165,7 @@ export default function Home() {
     calculateTimeLeft()
 
     return () => clearInterval(timer)
-  }, [])
+  }, [showConfetti])
 
   interface ContactLinkProps {
     href: string;
@@ -184,7 +196,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-900 via-red-800 to-black text-white">
+      
       <header className={`fixed w-full z-10 transition-all duration-300 bg-red-900 ${isScrolled ? "shadow-lg" : ""}`}>
+      {showConfetti && <ReactConfetti />}
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="text-2xl md:text-3xl font-bold">
             Copa Magé JJ
@@ -238,19 +252,131 @@ export default function Home() {
             >
               O melhor evento de lutas casadas, repleto de novidades!
             </motion.p>
-            <motion.div
-              className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-xl mx-auto mb-8"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              {Object.entries(timeLeft).map(([key, value]) => (
-                <div key={key} className="bg-red-800/50 rounded-lg p-2 md:p-4">
-                  <div className="text-xl md:text-2xl lg:text-4xl font-bold">{value}</div>
-                  <div className="text-xs md:text-sm text-red-300">{key}</div>
-                </div>
-              ))}
-            </motion.div>
+            <AnimatePresence mode="wait">
+              {eventStatus === 'countdown' && (
+                <motion.div
+                  key="countdown"
+                  className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-xl mx-auto mb-8"
+                  initial={{ opacity: 1 }}
+                  exit={{
+                    opacity: 0,
+                    scale: 0.5,
+                    transition: { duration: 0.5 }
+                  }}
+                >
+                  {Object.entries(timeLeft).map(([key, value]) => (
+                    <motion.div
+                      key={key}
+                      className="bg-red-800/50 rounded-lg p-2 md:p-4"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <motion.div
+                        className="text-xl md:text-2xl lg:text-4xl font-bold"
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY }}
+                      >
+                        {value}
+                      </motion.div>
+                      <div className="text-xs md:text-sm text-red-300">{key}</div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )}
+              {eventStatus === 'ongoing' && (
+                <motion.div
+                  key="event-ongoing"
+                  initial={{ opacity: 0, scale: 0.8, y: 50 }}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.5,
+                      type: "spring",
+                      stiffness: 100
+                    }
+                  }}
+                  className="bg-gradient-to-r from-red-600 to-yellow-500 text-white p-8 rounded-lg mb-8 shadow-lg"
+                >
+                  <motion.h2
+                    className="text-3xl md:text-4xl font-bold mb-4"
+                    animate={{
+                      scale: [1, 1.1, 1],
+                      textShadow: [
+                        "0 0 5px #fff",
+                        "0 0 20px #fff",
+                        "0 0 5px #fff"
+                      ]
+                    }}
+                    transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+                  >
+                    O evento é hoje!
+                  </motion.h2>
+                  <p className="text-xl">Não perca nenhum momento da ação!</p>
+                  <motion.div
+                    className="mt-6"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1 }}
+                  >
+                    <Button
+                      size="lg"
+                      className="bg-white text-red-600 hover:bg-red-100 text-lg font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105"
+                    >
+                      <a
+                      href="https://www.instagram.com/copamagejjofc/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Veja no Instagram
+                    </a>
+                    </Button>
+                  </motion.div>
+                </motion.div>
+              )}
+              {eventStatus === 'ended' && (
+                <motion.div
+                  key="event-ended"
+                  initial={{ opacity: 0, scale: 0.8, y: 50 }}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.5,
+                      type: "spring",
+                      stiffness: 100
+                    }
+                  }}
+                  className="bg-gradient-to-r from-gray-700 to-gray-900 text-white p-8 rounded-lg mb-8 shadow-lg"
+                >
+                  <motion.h2
+                    className="text-3xl md:text-4xl font-bold mb-4"
+                    animate={{
+                      opacity: [0.5, 1, 0.5],
+                      transition: { duration: 2, repeat: Number.POSITIVE_INFINITY }
+                    }}
+                  >
+                    O evento já foi encerrado
+                  </motion.h2>
+                  <p className="text-xl mb-6">Obrigado a todos que participaram!</p>
+                  <Button
+                    size="lg"
+                    className="bg-white text-gray-800 hover:bg-gray-200 text-lg font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105"
+                    asChild
+                  >
+                    <a
+                      href="https://www.instagram.com/copamagejjofc/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Ver Galeria de Fotos
+                    </a>
+                  </Button>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             <motion.div
               className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-8 mb-12"
