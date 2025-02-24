@@ -47,6 +47,7 @@ export default function Home() {
     { src: "/patrocinadores/braddock.jpg", alt: "Braddock da J - Pizza Pré Assada" },
     { src: "/patrocinadores/bazar-brasil.jpg", alt: "Bazar Brasil - Material Elétrico e Hidráulico" },
     { src: "/patrocinadores/felipe-da-grafica.jpg", alt: "Felipe da Gráfica" },
+    { src: "/patrocinadores/vinicius.jpg", alt: "Vinícius - Treinamento Físico" },
   ];
 
   const images = [
@@ -196,9 +197,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-900 via-red-800 to-black text-white">
-      
+
       <header className={`fixed w-full z-10 transition-all duration-300 bg-red-900 ${isScrolled ? "shadow-lg" : ""}`}>
-      {showConfetti && <ReactConfetti />}
+        {showConfetti && <ReactConfetti />}
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="text-2xl md:text-3xl font-bold">
             Copa Magé JJ
@@ -325,12 +326,12 @@ export default function Home() {
                       className="bg-white text-red-600 hover:bg-red-100 text-lg font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105"
                     >
                       <a
-                      href="https://www.instagram.com/copamagejjofc/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Veja no Instagram
-                    </a>
+                        href="https://www.instagram.com/copamagejjofc/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Veja no Instagram
+                      </a>
                     </Button>
                   </motion.div>
                 </motion.div>
@@ -419,31 +420,33 @@ export default function Home() {
             </motion.div>
           </div>
         </section>
+
         <section id="patrocinadores" className="py-20 bg-black text-white">
           <div className="container mx-auto px-6">
             <h2 className="text-2xl font-bold mb-8 text-center text-white">
               Nossos Patrocinadores
             </h2>
-
             {/* Grid Responsiva */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-center justify-items-center">
               {sponsors.map((sponsor, index) => (
                 <div
                   key={index}
-                  className="w-[150px] h-[150px] md:w-[180px] md:h-[180px] lg:w-[200px] lg:h-[200px] relative cursor-pointer"
-                  onClick={() => openModal(index + 4)} // 🔥 Ajusta para abrir corretamente
+                  className="relative group w-auto h-auto flex items-center justify-center transition-transform duration-300 hover:scale-105"
+                  onClick={() => openModal(index + 4)}
                 >
                   <Image
                     src={sponsor.src}
                     alt={sponsor.alt}
-                    layout="fill"
-                    className="object-coven rounded-lg transition-all duration-300 filter hover:brightness-110"
+                    width={0} // Mantém o tamanho original
+                    height={0} // Mantém o tamanho original
+                    className="object-contain rounded-lg w-auto h-auto transition-all duration-300 filter group-hover:brightness-110"
                   />
                 </div>
               ))}
             </div>
           </div>
         </section>
+
 
 
 
