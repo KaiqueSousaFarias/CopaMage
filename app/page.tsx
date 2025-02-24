@@ -43,7 +43,7 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const sponsors = [
-    { src: "/patrocinadores/instituto.jpg", alt: "Instituto - Muito Mais Que Medicina" },
+    { src: "/patrocinadores/instituto.png", alt: "Instituto - Muito Mais Que Medicina" },
     { src: "/patrocinadores/layaninha.jpg", alt: "Layaninha Kids - Moda Infantil" },
     { src: "/patrocinadores/nossa-otica.jpg", alt: "Nossa Ótica" },
     { src: "/patrocinadores/fox.jpg", alt: "Fox" },
@@ -58,7 +58,7 @@ export default function Home() {
     { src: "/copa.jpg", alt: "Competição da Copa Magé" },
     { src: "/copamage.png", alt: "Logo da Copa Magé" },
     { src: "/hazaq.png", alt: "Banner do Hazaq Jiu-Jitsu" },
-    ...sponsors, // 🔥 Adicionamos as imagens dos patrocinadores no modal
+    ...sponsors,
   ];
 
 
@@ -184,42 +184,30 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-900 via-red-800 to-black text-white">
-      <header
-        className={`fixed w-full z-10 transition-all duration-300 bg-red-900 lg:bg-transparent ${isScrolled ? "lg:bg-red-900 shadow-lg" : ""}`}
-      >
-        <nav
-          className={`container mx-auto py-4 px-6 flex flex-wrap justify-between items-center ${isScrolled ? "bg-red-900" : ""} lg:bg-transparent`}
-        >
-          <h1 className="text-2xl font-bold">Copa Magé de Jiu-Jitsu</h1>
-
+      <header className={`fixed w-full z-10 transition-all duration-300 bg-red-900 ${isScrolled ? "shadow-lg" : ""}`}>
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <Link href="/" className="text-2xl md:text-3xl font-bold">
+            Copa Magé JJ
+          </Link>
           <button
             className="lg:hidden text-white focus:outline-none"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
             </svg>
           </button>
-          <ul className={`w-full lg:flex lg:w-auto lg:space-x-6 mt-4 lg:mt-0 ${menuOpen ? "" : "hidden"}`}>
-            {["patrocinadores", "sobre", "destaques", "ingressos", "localizacao", "contato"].map((item) => (
-              <li key={item}>
-                <a
-                  href={`#${item}`}
-                  className="block py-2 px-4 text-white hover:text-red-300 transition-colors lg:inline-block"
-                >
-                  {item.charAt(0).toUpperCase() + item.slice(1)}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+          <nav className={`${menuOpen ? 'block' : 'hidden'} lg:flex lg:items-center absolute lg:static top-full left-0 w-full lg:w-auto bg-red-900 lg:bg-transparent`}>
+            <ul className="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-6 p-4 lg:p-0">
+              <li><Link href="#sobre" className="block hover:text-red-300 transition-colors" onClick={() => setMenuOpen(false)}>Sobre</Link></li>
+              <li><Link href="#patrocinadores" className="block hover:text-red-300 transition-colors" onClick={() => setMenuOpen(false)}>Patrocinadores</Link></li>
+              <li><Link href="#destaques" className="block hover:text-red-300 transition-colors" onClick={() => setMenuOpen(false)}>Destaques</Link></li>
+              <li><Link href="#ingressos" className="block hover:text-red-300 transition-colors" onClick={() => setMenuOpen(false)}>Ingressos</Link></li>
+              <li><Link href="#localizacao" className="block hover:text-red-300 transition-colors" onClick={() => setMenuOpen(false)}>Localização</Link></li>
+              <li><Link href="#contato" className="block hover:text-red-300 transition-colors" onClick={() => setMenuOpen(false)}>Contato</Link></li>
+            </ul>
+          </nav>
+        </div>
       </header>
 
       <main>
@@ -233,9 +221,9 @@ export default function Home() {
               priority
             />
           </div>
-          <div className="container mx-auto px-6 relative z-1">
+          <div className="container mx-auto px-4 relative z-1">
             <motion.h1
-              className="text-5xl md:text-7xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-300"
+              className="text-4xl md:text-5xl lg:text-7xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-300"
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -243,7 +231,7 @@ export default function Home() {
               5ª Copa Magé de Jiu-Jitsu
             </motion.h1>
             <motion.p
-              className="text-xl md:text-2xl mb-8 text-red-100"
+              className="text-lg md:text-xl lg:text-2xl mb-8 text-red-100"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -251,22 +239,18 @@ export default function Home() {
               O melhor evento de lutas casadas, repleto de novidades!
             </motion.p>
             <motion.div
-              className="grid grid-cols-4 gap-4 max-w-xl mx-auto mb-8"
+              className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-xl mx-auto mb-8"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               {Object.entries(timeLeft).map(([key, value]) => (
-                <div
-                  key={key}
-                  className="w-[100px] h-[80px] flex flex-col items-center justify-center bg-red-800/50 rounded-xl shadow-lg"
-                >
-                  <div className="text-2xl md:text-4xl font-bold">{value}</div>
-                  <div className="text-sm text-red-300">{key}</div>
+                <div key={key} className="bg-red-800/50 rounded-lg p-2 md:p-4">
+                  <div className="text-xl md:text-2xl lg:text-4xl font-bold">{value}</div>
+                  <div className="text-xs md:text-sm text-red-300">{key}</div>
                 </div>
               ))}
             </motion.div>
-
 
             <motion.div
               className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-8 mb-12"
@@ -274,13 +258,13 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <div className="flex items-center justify-center bg-red-800/50 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg">
-                <CalendarIcon className="mr-3" aria-hidden="true" />
-                <span className="text-lg">29 de março de 2025</span>
+              <div className="flex items-center justify-center bg-red-800/50 backdrop-blur-sm rounded-full px-4 py-2 md:px-6 md:py-3 shadow-lg">
+                <CalendarIcon className="mr-2 md:mr-3 w-5 h-5 md:w-6 md:h-6" aria-hidden="true" />
+                <span className="text-sm md:text-lg">29 de março de 2025</span>
               </div>
-              <div className="flex items-center justify-center bg-red-800/50 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg">
-                <MapPinIcon className="mr-3" aria-hidden="true" />
-                <a href="#localizacao" className="text-lg hover:text-red-300 transition-colors">
+              <div className="flex items-center justify-center bg-red-800/50 backdrop-blur-sm rounded-full px-4 py-2 md:px-6 md:py-3 shadow-lg">
+                <MapPinIcon className="mr-2 md:mr-3 w-5 h-5 md:w-6 md:h-6" aria-hidden="true" />
+                <a href="#localizacao" className="text-sm md:text-lg hover:text-red-300 transition-colors">
                   Poliesportivo Renato Medeiros
                 </a>
               </div>
@@ -293,7 +277,7 @@ export default function Home() {
             >
               <Button
                 size="lg"
-                className="bg-red-600 hover:bg-red-700 text-white text-xl font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105"
+                className="bg-red-600 hover:bg-red-700 text-white text-base md:text-xl font-bold py-2 md:py-4 px-4 md:px-8 rounded-full transition-all duration-300 transform hover:scale-105"
                 asChild
               >
                 <Link href="/inscricao">Inscreva-se Agora</Link>
@@ -301,7 +285,7 @@ export default function Home() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-red-500 text-white hover:bg-red-900/50 text-xl font-bold py-4 px-8 rounded-full transition-all duration-300"
+                className="border-red-500 text-white hover:bg-red-900/50 text-base md:text-xl font-bold py-2 md:py-4 px-4 md:px-8 rounded-full transition-all duration-300"
                 asChild
               >
                 <a href="#sobre">Saiba Mais</a>
@@ -309,7 +293,7 @@ export default function Home() {
             </motion.div>
           </div>
         </section>
-        <section id="patrocinadores" className="py-12 bg-black bg-opacity-50">
+        <section id="patrocinadores" className="py-20 bg-black text-white">
           <div className="container mx-auto px-6">
             <h2 className="text-2xl font-bold mb-8 text-center text-white">
               Nossos Patrocinadores
