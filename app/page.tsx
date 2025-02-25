@@ -48,6 +48,7 @@ export default function Home() {
     { src: "/patrocinadores/bazar-brasil.jpg", alt: "Bazar Brasil - Material Elétrico e Hidráulico" },
     { src: "/patrocinadores/felipe-da-grafica.jpg", alt: "Felipe da Gráfica" },
     { src: "/patrocinadores/vinicius.jpg", alt: "Vinícius - Treinamento Físico" },
+    { src: "/patrocinadores/chaveiro.png", alt: "Chaveiro União" },
   ];
 
   const images = [
@@ -427,7 +428,8 @@ export default function Home() {
               Nossos Patrocinadores
             </h2>
             {/* Grid Responsiva */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-center justify-items-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-center justify-items-center">
+
               {sponsors.map((sponsor, index) => (
                 <div
                   key={index}
@@ -437,10 +439,11 @@ export default function Home() {
                   <Image
                     src={sponsor.src}
                     alt={sponsor.alt}
-                    width={0} // Mantém o tamanho original
-                    height={0} // Mantém o tamanho original
+                    width={0}
+                    height={0}
                     className="object-contain rounded-lg w-auto h-auto transition-all duration-300 filter group-hover:brightness-110"
                   />
+
                 </div>
               ))}
             </div>
