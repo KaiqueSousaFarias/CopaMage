@@ -131,7 +131,7 @@ export default function Home() {
     minutos: 0,
     segundos: 0,
   })
-  const [eventStatus, setEventStatus] = useState('countdown')  // 'countdown', 'ongoing', 'ended'
+ const [eventStatus, setEventStatus] = useState('countdown')  // 'countdown', 'ongoing', 'ended', 'registrationsEnded'
 const [showConfetti, setShowConfetti] = useState(false)
 
 useEffect(() => {
@@ -143,8 +143,8 @@ useEffect(() => {
     const now = new Date()
     const difference = +eventDate - +now
 
-    if (now > registrationEndDate) {
-      setEventStatus('ended')
+    if (now > registrationEndDate && difference > 0) {
+      setEventStatus('registrationsEnded')
     } else if (difference > 0) {
       // Evento ainda não começou
       setTimeLeft({
@@ -407,9 +407,9 @@ useEffect(() => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              {eventStatus === 'ended' ? (
+ {eventStatus === 'registrationsEnded' ? (
   <p className="text-xl text-red-300 font-bold">As inscrições foram encerradas em 7 de março de 2025.</p>
-) : (
+) : eventStatus === 'countdown' ? (
   <Button
     size="lg"
     className="bg-red-600 hover:bg-red-700 text-white text-base md:text-xl font-bold py-2 md:py-4 px-4 md:px-8 rounded-full transition-all duration-300 transform hover:scale-105"
@@ -417,7 +417,7 @@ useEffect(() => {
   >
     <Link href="/inscricao">Inscreva-se Agora</Link>
   </Button>
-)}
+) : null}
               <Button
                 size="lg"
                 variant="outline"
