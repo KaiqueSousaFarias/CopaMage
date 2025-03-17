@@ -407,17 +407,27 @@ useEffect(() => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
- {eventStatus === 'registrationsEnded' ? (
-  <p className="text-xl text-red-300 font-bold">As inscrições foram encerradas em 7 de março de 2025.</p>
-) : eventStatus === 'countdown' ? (
-  <Button
-    size="lg"
-    className="bg-red-600 hover:bg-red-700 text-white text-base md:text-xl font-bold py-2 md:py-4 px-4 md:px-8 rounded-full transition-all duration-300 transform hover:scale-105"
-    asChild
-  >
-    <Link href="/inscricao">Inscreva-se Agora</Link>
-  </Button>
-) : null}
+ 
+  {eventStatus === 'registrationsEnded' && (
+    <p className="text-xl text-red-300 font-bold">
+      As inscrições foram encerradas em 7 de março de 2025.
+    </p>
+  )}
+
+  {(eventStatus === 'countdown' || eventStatus === 'registrationsEnded') && (
+    <CountdownTimer eventDate="2025-03-07T23:59:59" />
+  )}
+
+  {eventStatus === 'countdown' && (
+    <Button
+      size="lg"
+      className="bg-red-600 hover:bg-red-700 text-white text-base md:text-xl font-bold py-2 md:py-4 px-4 md:px-8 rounded-full transition-all duration-300 transform hover:scale-105"
+      asChild
+    >
+      <Link href="/inscricao">Inscreva-se Agora</Link>
+    </Button>
+  )}
+
               <Button
                 size="lg"
                 variant="outline"
