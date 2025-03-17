@@ -1,5 +1,6 @@
 "use client"
 
+import { useRouter } from 'next/router';
 import { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
 import Link from "next/link"
@@ -131,43 +132,46 @@ export default function Home() {
     segundos: 0,
   })
   const [eventStatus, setEventStatus] = useState('countdown')  // 'countdown', 'ongoing', 'ended'
-  const [showConfetti, setShowConfetti] = useState(false)
+const [showConfetti, setShowConfetti] = useState(false)
 
-  useEffect(() => {
-    const eventDate = new Date("2025-03-29T00:00:00")
-    const eventEndDate = new Date("2025-03-29T23:59:59")
+useEffect(() => {
+  const eventDate = new Date("2025-03-29T00:00:00")
+  const eventEndDate = new Date("2025-03-29T23:59:59")
+  const registrationEndDate = new Date("2025-03-07T23:59:59")
 
-    const calculateTimeLeft = () => {
-      const now = new Date()
-      const difference = +eventDate - +now
+  const calculateTimeLeft = () => {
+    const now = new Date()
+    const difference = +eventDate - +now
 
-      if (difference > 0) {
-        // Evento ainda não começou
-        setTimeLeft({
-          dias: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          horas: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutos: Math.floor((difference / 1000 / 60) % 60),
-          segundos: Math.floor((difference / 1000) % 60),
-        })
-        setEventStatus('countdown')
-      } else if (now <= eventEndDate) {
-        // Evento está em andamento
-        setEventStatus('ongoing')
-        if (!showConfetti) {
-          setShowConfetti(true)
-          setTimeout(() => setShowConfetti(false), 5000) // Desativa o confete após 5 segundos
-        }
-      } else {
-        // Evento já encerrou
-        setEventStatus('ended')
+    if (now > registrationEndDate) {
+      setEventStatus('ended')
+    } else if (difference > 0) {
+      // Evento ainda não começou
+      setTimeLeft({
+        dias: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        horas: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutos: Math.floor((difference / 1000 / 60) % 60),
+        segundos: Math.floor((difference / 1000) % 60),
+      })
+      setEventStatus('countdown')
+    } else if (now <= eventEndDate) {
+      // Evento está em andamento
+      setEventStatus('ongoing')
+      if (!showConfetti) {
+        setShowConfetti(true)
+        setTimeout(() => setShowConfetti(false), 5000) // Desativa o confete após 5 segundos
       }
+    } else {
+      // Evento já encerrou
+      setEventStatus('ended')
     }
+  }
 
-    const timer = setInterval(calculateTimeLeft, 1000)
-    calculateTimeLeft()
+  const timer = setInterval(calculateTimeLeft, 1000)
+  calculateTimeLeft()
 
-    return () => clearInterval(timer)
-  }, [showConfetti])
+  return () => clearInterval(timer)
+}, [showConfetti])
 
   interface ContactLinkProps {
     href: string;
@@ -403,13 +407,17 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              <Button
-                size="lg"
-                className="bg-red-600 hover:bg-red-700 text-white text-base md:text-xl font-bold py-2 md:py-4 px-4 md:px-8 rounded-full transition-all duration-300 transform hover:scale-105"
-                asChild
-              >
-                <Link href="/inscricao">Inscreva-se Agora</Link>
-              </Button>
+              {eventStatus === 'ended' ? (
+  <p className="text-xl text-red-300 font-bold">As inscrições foram encerradas em 7 de março de 2025.</p>
+) : (
+  <Button
+    size="lg"
+    className="bg-red-600 hover:bg-red-700 text-white text-base md:text-xl font-bold py-2 md:py-4 px-4 md:px-8 rounded-full transition-all duration-300 transform hover:scale-105"
+    asChild
+  >
+    <Link href="/inscricao">Inscreva-se Agora</Link>
+  </Button>
+)}
               <Button
                 size="lg"
                 variant="outline"
