@@ -1,24 +1,25 @@
-import "./globals.css"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-
-const inter = Inter({ subsets: ["latin-ext"] })
+import type { Metadata } from 'next'
+import { GeistSans } from 'geist/font/sans'
+import { GeistMono } from 'geist/font/mono'
+import { Analytics } from '@vercel/analytics/next'
+import './globals.css'
 
 export const metadata: Metadata = {
-  title: "5ª Copa Magé de Jiu-Jitsu",
-  description: "O melhor evento de lutas casadas, repleto de novidades!",
-  icons: "/hazaq.png",
+  title: 'v0 App',
+  description: 'Created with v0',
+  generator: 'v0.app',
 }
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
-    <html lang="pt-BR">
-      <body className={inter.className}>
+    <html lang="en">
+      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         {children}
+        <Analytics />
       </body>
     </html>
   )
