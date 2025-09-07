@@ -29,8 +29,8 @@ export default function HomePage() {
 
           <div className="mb-12">
             <img
-              src="/evento.jpg"
-              alt="Copa Magé de Jiu-Jitsu"
+              src="/6-evento.jpg"
+              alt="Evento Copa Magé de Jiu-Jitsu"
               className="w-full max-w-4xl mx-auto rounded-lg shadow-[0_6px_24px_rgba(0,0,0,0.06)]"
             />
           </div>
