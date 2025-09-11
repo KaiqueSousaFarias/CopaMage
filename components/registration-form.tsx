@@ -14,22 +14,44 @@ interface RegistrationFormProps {
   onClose: () => void
 }
 
+function formatDateBR(isoDate: string) {
+  // isoDate vem como "yyyy-mm-dd" do <input type="date" />
+  if (!isoDate) return ""
+  const [yyyy, mm, dd] = isoDate.split("-")
+  return `${dd}/${mm}/${yyyy}`
+}
+
 export function RegistrationForm({ isOpen, onClose }: RegistrationFormProps) {
   const [fullName, setFullName] = useState("")
   const [birthDate, setBirthDate] = useState("")
   const [belt, setBelt] = useState("")
   const [team, setTeam] = useState("")
+  const [weight, setWeight] = useState("") // Novo: Peso (kg)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (fullName && birthDate && belt && team) {
-      const message = `Olá! Gostaria de me inscrever na 6ª Copa Magé de Jiu-Jitsu.%0A%0ANome Completo: ${encodeURIComponent(fullName)}%0AData de Nascimento: ${encodeURIComponent(birthDate)}%0AFaixa: ${encodeURIComponent(belt)}%0AEquipe: ${encodeURIComponent(team)}`
+
+    // Validação simples (Select do shadcn não respeita 'required')
+    if (fullName && birthDate && belt && team && weight) {
+      const birthDateBR = formatDateBR(birthDate)
+
+      const message =
+        `Olá! Gostaria de me inscrever na 6ª Copa Magé de Jiu-Jitsu.` +
+        `%0A%0A` +
+        `Nome Completo: ${encodeURIComponent(fullName)}` +
+        `%0AData de Nascimento: ${encodeURIComponent(birthDateBR)}` +
+        `%0AFaixa: ${encodeURIComponent(belt)}` +
+        `%0AEquipe: ${encodeURIComponent(team)}` +
+        `%0APeso: ${encodeURIComponent(`${weight} kg`)}`
+
       window.open(`https://wa.me/5521988708875?text=${message}`, "_blank")
+
       onClose()
       setFullName("")
       setBirthDate("")
       setBelt("")
       setTeam("")
+      setWeight("")
     }
   }
 
@@ -75,17 +97,17 @@ export function RegistrationForm({ isOpen, onClose }: RegistrationFormProps) {
                   <SelectValue placeholder="Selecione sua faixa" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="branca">Branca</SelectItem>
-                  <SelectItem value="cinza">Cinza</SelectItem>
-                  <SelectItem value="amarela">Amarela</SelectItem>
-                  <SelectItem value="laranja">Laranja</SelectItem>
-                  <SelectItem value="verde">Verde</SelectItem>
-                  <SelectItem value="azul">Azul</SelectItem>
-                  <SelectItem value="roxa">Roxa</SelectItem>
-                  <SelectItem value="marrom">Marrom</SelectItem>
-                  <SelectItem value="preta">Preta</SelectItem>
-                  <SelectItem value="coral">Coral</SelectItem>
-                  <SelectItem value="vermelha">Vermelha</SelectItem>
+                  <SelectItem value="BRANCA">Branca</SelectItem>
+                  <SelectItem value="CINZA">Cinza</SelectItem>
+                  <SelectItem value="AMARELA">Amarela</SelectItem>
+                  <SelectItem value="LARANJA">Laranja</SelectItem>
+                  <SelectItem value="VERDE">Verde</SelectItem>
+                  <SelectItem value="AZUL">Azul</SelectItem>
+                  <SelectItem value="ROXA">Roxa</SelectItem>
+                  <SelectItem value="MARROM">Marrom</SelectItem>
+                  <SelectItem value="PRETA">Preta</SelectItem>
+                  <SelectItem value="CORAL">Coral</SelectItem>
+                  <SelectItem value="VERMELHA">Vermelha</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -97,6 +119,22 @@ export function RegistrationForm({ isOpen, onClose }: RegistrationFormProps) {
                 value={team}
                 onChange={(e) => setTeam(e.target.value)}
                 placeholder="Digite o nome da sua equipe"
+                required
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="weight">Peso (kg)</Label>
+              <Input
+                id="weight"
+                type="number"
+                inputMode="decimal"
+                step="0.1"
+                min="10"
+                max="200"
+                value={weight}
+                onChange={(e) => setWeight(e.target.value)}
+                placeholder="Ex.: 75.5"
                 required
               />
             </div>
