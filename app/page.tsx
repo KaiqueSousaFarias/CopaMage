@@ -29,8 +29,8 @@ export default function HomePage() {
 
           <div className="mb-12">
             <img
-              src="/6-evento.jpg"
-              alt="Evento Copa Magé de Jiu-Jitsu"
+              src="/evento.jpg"
+              alt="Evento Copa Magé de Jiu-Jitsu em Magé RJ"
               className="w-full max-w-4xl mx-auto rounded-lg shadow-[0_6px_24px_rgba(0,0,0,0.06)]"
             />
           </div>
@@ -378,7 +378,7 @@ export default function HomePage() {
 
           <div className="border-t border-background/20 pt-4">
             <p className="text-background/60 text-sm">
-              © {new Date().getFullYear()} Copa Magé de Jiu-Jitsu. Todos os direitos reservados.
+              &copy; {new Date().getFullYear()} Copa Magé de Jiu-Jitsu. Todos os direitos reservados.
             </p>
           </div>
         </div>
