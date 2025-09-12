@@ -145,8 +145,8 @@ export default function HomePage() {
             {(() => {
               const currentDate = new Date()
               const batch1End = new Date("2025-09-05")
-              const batch2End = new Date("2025-09-10")
-              const batch3End = new Date("2025-10-05")
+              const batch2End = new Date("2025-09-20")
+              const batch3End = new Date("2025-09-25")
 
               const isBatch1Active = currentDate <= batch1End
               const isBatch2Active = currentDate > batch1End && currentDate <= batch2End
@@ -181,7 +181,7 @@ export default function HomePage() {
                       <CardTitle className="text-center">2º Lote</CardTitle>
                       <div className="text-center">
                         <span className="text-3xl font-bold text-primary">R$ 110</span>
-                        <p className="text-sm text-muted-foreground">Até 10/09/2025</p>
+                        <p className="text-sm text-muted-foreground">Até 20/09/2025</p>
                         {isBatch2Active && <p className="text-xs text-primary font-semibold">LOTE ATUAL</p>}
                         {currentDate <= batch1End && <p className="text-xs text-muted-foreground">PRÓXIMO</p>}
                         {currentDate > batch2End && <p className="text-xs text-muted-foreground">ENCERRADO</p>}
@@ -201,7 +201,7 @@ export default function HomePage() {
                       <CardTitle className="text-center">3º Lote</CardTitle>
                       <div className="text-center">
                         <span className="text-3xl font-bold text-primary">R$ 120</span>
-                        <p className="text-sm text-muted-foreground">Até 05/10/2025</p>
+                        <p className="text-sm text-muted-foreground">Até 25/09/2025</p>
                         {isBatch3Active && <p className="text-xs text-primary font-semibold">LOTE ATUAL</p>}
                         {currentDate <= batch2End && <p className="text-xs text-muted-foreground">PRÓXIMO</p>}
                         {isRegistrationClosed && <p className="text-xs text-muted-foreground">ENCERRADO</p>}
@@ -219,7 +219,7 @@ export default function HomePage() {
           </div>
           {(() => {
             const currentDate = new Date()
-            const batch3End = new Date("2025-10-05")
+            const batch3End = new Date("2025-09-25")
             const isRegistrationClosed = currentDate > batch3End
 
             return isRegistrationClosed ? (
@@ -249,7 +249,7 @@ export default function HomePage() {
                 <img
                   src={sponsor.logo || "/placeholder.svg"}
                   alt={sponsor.name}
-                  className="max-w-full max-h-16 object-contain"
+                  className="max-w-full max-h-16 md:max-h-20 lg:max-h-24 object-contain"
                 />
               </a>
             ))}
