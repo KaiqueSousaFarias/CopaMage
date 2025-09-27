@@ -1,0 +1,98 @@
+[
+  {
+    "id": "carlos-silva",
+    "nome": "Carlos Silva",
+    "foto": "/brazilian-jiu-jitsu-athlete-male.jpg",
+    "data_nascimento": "1995-03-15",
+    "idade": 30,
+    "faixa": "preta",
+    "equipe": {
+      "nome": "Hazaq Jiu Jitsu",
+      "logo": "/hazaq-logo.png"
+    }
+  },
+  {
+    "id": "rafael-santos",
+    "nome": "Rafael Santos",
+    "foto": "/brazilian-jiu-jitsu-competitor-male.jpg",
+    "data_nascimento": "1992-08-22",
+    "idade": 33,
+    "faixa": "preta",
+    "equipe": {
+      "nome": "Alliance",
+      "logo": "/alliance-jiu-jitsu-logo.jpg"
+    }
+  },
+  {
+    "id": "bruno-costa",
+    "nome": "Bruno Costa",
+    "foto": "/jiu-jitsu-heavyweight-athlete.jpg",
+    "data_nascimento": "1990-12-10",
+    "idade": 34,
+    "faixa": "marrom",
+    "equipe": {
+      "nome": "Gracie Barra",
+      "logo": "/gracie-barra-logo.jpg"
+    }
+  },
+  {
+    "id": "thiago-oliveira",
+    "nome": "Thiago Oliveira",
+    "foto": "/brazilian-jiu-jitsu-brown-belt.jpg",
+    "data_nascimento": "1988-05-03",
+    "idade": 37,
+    "faixa": "preta",
+    "equipe": {
+      "nome": "Checkmat",
+      "logo": "/checkmat-team-logo.jpg"
+    }
+  },
+  {
+    "id": "ana-ferreira",
+    "nome": "Ana Ferreira",
+    "foto": "/female-jiu-jitsu-athlete.jpg",
+    "data_nascimento": "1998-07-14",
+    "idade": 27,
+    "faixa": "roxa",
+    "equipe": {
+      "nome": "Dream Art",
+      "logo": "/dream-art-jiu-jitsu-logo.jpg"
+    }
+  },
+  {
+    "id": "bruna-lopes",
+    "nome": "Bruna Lopes",
+    "foto": "/female-bjj-competitor.jpg",
+    "data_nascimento": "1996-01-28",
+    "idade": 29,
+    "faixa": "marrom",
+    "equipe": {
+      "nome": "GFTeam",
+      "logo": "/gfteam-logo.jpg"
+    }
+  },
+  {
+    "id": "joao-mendes",
+    "nome": "João Mendes",
+    "foto": "/professional-grappler-male.jpg",
+    "data_nascimento": "1993-11-20",
+    "idade": 31,
+    "faixa": "preta",
+    "equipe": {
+      "nome": "Hazaq Jiu Jitsu",
+      "logo": "/hazaq-logo.png"
+    }
+  },
+  {
+    "id": "pedro-almeida",
+    "nome": "Pedro Almeida",
+    "foto": "/no-gi-grappling-athlete.jpg",
+    "data_nascimento": "1991-04-08",
+    "idade": 34,
+    "faixa": "preta",
+    "equipe": {
+      "nome": "Atos",
+      "logo": "/atos-jiu-jitsu-logo.jpg"
+    }
+  }
+]

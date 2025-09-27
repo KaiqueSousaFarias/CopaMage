@@ -1,0 +1,43 @@
+{
+  "eventos": [
+    {
+      "id_evento": "1",
+      "nome_evento": "6ª Copa Magé de Jiu-Jitsu",
+      "data_evento": "2025-10-19T00:00:00",
+      "lutas": [
+        {
+          "id_luta": "luta-001",
+          "categoria": "Adulto Masculino - Médio",
+          "horario": "14:30",
+          "status_luta": "confirmada",
+          "atleta_a_id": "carlos-silva",
+          "atleta_b_id": "rafael-santos"
+        },
+        {
+          "id_luta": "luta-002",
+          "categoria": "Adulto Masculino - Pesado",
+          "horario": "15:00",
+          "status_luta": "pendente",
+          "atleta_a_id": "bruno-costa",
+          "atleta_b_id": "thiago-oliveira"
+        },
+        {
+          "id_luta": "luta-003",
+          "categoria": "Feminino - Leve",
+          "horario": "15:30",
+          "status_luta": "confirmada",
+          "atleta_a_id": "ana-ferreira",
+          "atleta_b_id": "bruna-lopes"
+        },
+        {
+          "id_luta": "luta-004",
+          "categoria": "Grappling Profissional",
+          "horario": "16:00",
+          "status_luta": "confirmada",
+          "atleta_a_id": "joao-mendes",
+          "atleta_b_id": "pedro-almeida"
+        }
+      ]
+    }
+  ]
+}

@@ -1,16 +1,29 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { Header } from "@/components/header"
 import { Countdown } from "@/components/countdown"
 import { RegistrationForm } from "@/components/registration-form"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Trophy, Award, Users, MapPin, Phone, Mail, Instagram } from "lucide-react"
+import { Trophy, Award, Users, MapPin, Phone, Mail, Instagram, Swords } from "lucide-react"
 import sponsors from "@/data/sponsors.json"
+import Link from "next/link";
 
 export default function HomePage() {
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(false)
+
+  const isRegistrationStillOpen = useMemo(() => {
+    const now = new Date()
+    const deadline = new Date("2025-09-25T23:59:59-03:00")
+    return now <= deadline
+  }, [])
+
+  const tryOpenRegistration = () => {
+    if (!isRegistrationStillOpen) return
+    setIsRegistrationOpen(true)
+  }
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -29,7 +42,7 @@ export default function HomePage() {
 
           <div className="mb-12">
             <img
-              src="/evento.jpg"
+              src="/image/evento.jpg"
               alt="Evento Copa Magé de Jiu-Jitsu em Magé RJ"
               className="w-full max-w-4xl mx-auto rounded-lg shadow-[0_6px_24px_rgba(0,0,0,0.06)]"
             />
@@ -40,13 +53,17 @@ export default function HomePage() {
             <Countdown />
           </div>
 
-          <Button
-            size="lg"
-            onClick={() => setIsRegistrationOpen(true)}
-            className="text-lg px-8 py-6 hover:scale-105 transition-transform"
-          >
-            Inscreva-se Agora
-          </Button>
+          {isRegistrationStillOpen ? (
+            <Button
+              size="lg"
+              onClick={tryOpenRegistration}
+              className="text-lg px-8 py-6 hover:scale-105 transition-transform"
+            >
+              Inscreva-se Agora
+            </Button>
+          ) : (
+            <p className="mt-4 text-sm text-muted-foreground">*Inscrições encerradas</p>
+          )}
         </div>
       </section>
 
@@ -144,9 +161,9 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {(() => {
               const currentDate = new Date()
-              const batch1End = new Date("2025-09-05")
-              const batch2End = new Date("2025-09-20")
-              const batch3End = new Date("2025-09-25")
+              const batch1End = new Date("2025-09-05T23:59:59-03:00")
+              const batch2End = new Date("2025-09-20T23:59:59-03:00")
+              const batch3End = new Date("2025-09-25T23:59:59-03:00")
 
               const isBatch1Active = currentDate <= batch1End
               const isBatch2Active = currentDate > batch1End && currentDate <= batch2End
@@ -155,28 +172,29 @@ export default function HomePage() {
 
               return (
                 <>
-                  <Card
-                    className={`hover:scale-105 transition-transform shadow-[0_6px_24px_rgba(0,0,0,0.06)] border-0 ${isBatch1Active ? "ring-2 ring-primary" : "opacity-60"}`}
-                  >
+                  {/* 1º Lote */}
+                  <Card className={`hover:scale-105 transition-transform shadow-[0_6px_24px_rgba(0,0,0,0.06)] border-0 ${isBatch1Active ? "ring-2 ring-primary" : "opacity-60"}`}>
                     <CardHeader>
                       <CardTitle className="text-center">1º Lote</CardTitle>
                       <div className="text-center">
                         <span className="text-3xl font-bold text-primary">R$ 90</span>
                         <p className="text-sm text-muted-foreground">Até 05/09/2025</p>
-                        {isBatch1Active && <p className="text-xs text-primary font-semibold">LOTE ATUAL</p>}
-                        {!isBatch1Active && <p className="text-xs text-muted-foreground">ENCERRADO</p>}
+                        {isBatch1Active ? (
+                          <p className="text-xs text-primary font-semibold">LOTE ATUAL</p>
+                        ) : (
+                          <p className="text-xs text-muted-foreground">ENCERRADO</p>
+                        )}
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <Button className="w-full" onClick={() => setIsRegistrationOpen(true)} disabled={!isBatch1Active}>
-                        {isBatch1Active ? "Inscrever-se" : "Encerrado"}
+                      <Button className="w-full" onClick={tryOpenRegistration} disabled={!isBatch1Active || !isRegistrationStillOpen}>
+                        {isBatch1Active && isRegistrationStillOpen ? "Inscrever-se" : "Encerrado"}
                       </Button>
                     </CardContent>
                   </Card>
 
-                  <Card
-                    className={`hover:scale-105 transition-transform shadow-[0_6px_24px_rgba(0,0,0,0.06)] border-0 ${isBatch2Active ? "ring-2 ring-primary" : "opacity-60"}`}
-                  >
+                  {/* 2º Lote */}
+                  <Card className={`hover:scale-105 transition-transform shadow-[0_6px_24px_rgba(0,0,0,0.06)] border-0 ${isBatch2Active ? "ring-2 ring-primary" : "opacity-60"}`}>
                     <CardHeader>
                       <CardTitle className="text-center">2º Lote</CardTitle>
                       <div className="text-center">
@@ -188,15 +206,14 @@ export default function HomePage() {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <Button className="w-full" onClick={() => setIsRegistrationOpen(true)} disabled={!isBatch2Active}>
-                        {isBatch2Active ? "Inscrever-se" : currentDate <= batch1End ? "Em breve" : "Encerrado"}
+                      <Button className="w-full" onClick={tryOpenRegistration} disabled={!isBatch2Active || !isRegistrationStillOpen}>
+                        {isBatch2Active && isRegistrationStillOpen ? "Inscrever-se" : currentDate <= batch1End ? "Em breve" : "Encerrado"}
                       </Button>
                     </CardContent>
                   </Card>
 
-                  <Card
-                    className={`hover:scale-105 transition-transform shadow-[0_6px_24px_rgba(0,0,0,0.06)] border-0 ${isBatch3Active ? "ring-2 ring-primary" : "opacity-60"}`}
-                  >
+                  {/* 3º Lote */}
+                  <Card className={`hover:scale-105 transition-transform shadow-[0_6px_24px_rgba(0,0,0,0.06)] border-0 ${isBatch3Active ? "ring-2 ring-primary" : "opacity-60"}`}>
                     <CardHeader>
                       <CardTitle className="text-center">3º Lote</CardTitle>
                       <div className="text-center">
@@ -208,8 +225,8 @@ export default function HomePage() {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <Button className="w-full" onClick={() => setIsRegistrationOpen(true)} disabled={!isBatch3Active}>
-                        {isBatch3Active ? "Inscrever-se" : currentDate <= batch2End ? "Em breve" : "Encerrado"}
+                      <Button className="w-full" onClick={tryOpenRegistration} disabled={!isBatch3Active || !isRegistrationStillOpen}>
+                        {isBatch3Active && isRegistrationStillOpen ? "Inscrever-se" : currentDate <= batch2End ? "Em breve" : "Encerrado"}
                       </Button>
                     </CardContent>
                   </Card>
@@ -218,10 +235,7 @@ export default function HomePage() {
             })()}
           </div>
           {(() => {
-            const currentDate = new Date()
-            const batch3End = new Date("2025-09-25")
-            const isRegistrationClosed = currentDate > batch3End
-
+            const isRegistrationClosed = !isRegistrationStillOpen
             return isRegistrationClosed ? (
               <p className="text-center text-sm text-muted-foreground mt-8">*Inscrições encerradas</p>
             ) : (
@@ -384,7 +398,25 @@ export default function HomePage() {
         </div>
       </footer>
 
-      <RegistrationForm isOpen={isRegistrationOpen} onClose={() => setIsRegistrationOpen(false)} />
+      {/* Floating alert for fights */}
+      {/*<Link href="/lutas">
+        <div className="fixed bottom-6 left-6 z-50 group cursor-pointer">
+          <div className="bg-primary text-primary-foreground p-4 rounded-full shadow-lg hover:scale-110 transition-all duration-300 animate-pulse">
+            <Swords className="w-6 h-6" />
+          </div>
+          <div className="absolute bottom-full left-0 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+            <div className="bg-foreground text-background px-3 py-2 rounded-lg text-sm whitespace-nowrap shadow-lg">
+              🥊 Confira a lista de lutas!
+              <div className="absolute top-full left-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-foreground"></div>
+            </div>
+          </div>
+        </div>
+      </Link>*/}
+
+      <RegistrationForm
+        isOpen={isRegistrationOpen && isRegistrationStillOpen}
+        onClose={() => setIsRegistrationOpen(false)}
+      />
     </div>
   )
 }

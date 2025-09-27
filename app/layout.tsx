@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Copa Magé - Evento de Jiu-Jitsu em Magé, RJ',
   generator: 'Copa Magé',
   icons: {
-    icon: 'hazaq-logo.png'
+    icon: '/image/hazaq-logo.png'
   }
 }
 

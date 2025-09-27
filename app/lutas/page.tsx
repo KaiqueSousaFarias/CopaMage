@@ -5,7 +5,8 @@ import {Header} from "@/components/header"
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card"
 import {Badge} from "@/components/ui/badge"
 import {Button} from "@/components/ui/button"
-import {Calendar, Clock, Users, Trophy, Zap} from "lucide-react"
+import {Input} from "@/components/ui/input"
+import {Calendar, Clock, Users, Trophy, Zap, Search} from "lucide-react"
 import {fightData, enrichFightsWithAthletes, type EnrichedFight} from "@/lib/fight-data"
 
 const statusColors = {
@@ -36,15 +37,25 @@ const beltColors = {
     vermelha: "bg-red-600 text-white shadow-md",
 }
 
-export default function FightsPage() {
+export default function LutasPage() {
     const [selectedCategory, setSelectedCategory] = useState<string>("all")
+    const [searchTerm, setSearchTerm] = useState<string>("")
 
     const evento = fightData.eventos[0]
     const enrichedFights = enrichFightsWithAthletes(evento.lutas)
     const categories = ["all", ...Array.from(new Set(enrichedFights.map((luta) => luta.categoria)))]
 
-    const filteredFights: EnrichedFight[] =
-        selectedCategory === "all" ? enrichedFights : enrichedFights.filter((luta) => luta.categoria === selectedCategory)
+    const filteredFights: EnrichedFight[] = enrichedFights.filter((luta) => {
+        const matchesCategory = selectedCategory === "all" || luta.categoria === selectedCategory
+        const matchesSearch =
+            searchTerm === "" ||
+            luta.atleta_a.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            luta.atleta_b.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            luta.atleta_a.equipe.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            luta.atleta_b.equipe.nome.toLowerCase().includes(searchTerm.toLowerCase())
+
+        return matchesCategory && matchesSearch
+    })
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
@@ -55,7 +66,7 @@ export default function FightsPage() {
                 <div className="container mx-auto">
                     <div className="text-center mb-12">
                         <h1 className="text-4xl md:text-5xl font-bold mb-4 text-balance bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                            Card de{" "}
+                            Lista de{" "}
                             <span
                                 className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Lutas</span>
                         </h1>
@@ -63,14 +74,33 @@ export default function FightsPage() {
                             <div
                                 className="flex items-center gap-2 bg-white/60 backdrop-blur-sm px-3 py-2 rounded-full">
                                 <Calendar className="w-5 h-5 text-primary"/>
-                                <span
-                                    className="font-medium">{new Date(evento.data_evento).toLocaleDateString("pt-BR")}</span>
+                                <span className="font-medium">
+                                  {new Date(evento.data_evento).toLocaleDateString("pt-BR", {
+                                      day: "2-digit",
+                                      month: "2-digit",
+                                      year: "numeric",
+                                  })}
+                                </span>
                             </div>
                             <div
                                 className="flex items-center gap-2 bg-white/60 backdrop-blur-sm px-3 py-2 rounded-full">
                                 <Users className="w-5 h-5 text-primary"/>
                                 <span className="font-medium">{evento.lutas.length} lutas programadas</span>
                             </div>
+                        </div>
+                    </div>
+
+                    <div className="max-w-md mx-auto mb-8">
+                        <div className="relative">
+                            <Search
+                                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"/>
+                            <Input
+                                type="text"
+                                placeholder="Buscar por nome do atleta ou equipe..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="pl-10 bg-white/80 backdrop-blur-sm border-gray-200 focus:border-primary focus:ring-primary/20 shadow-sm"
+                            />
                         </div>
                     </div>
 
@@ -94,20 +124,20 @@ export default function FightsPage() {
                     </div>
 
                     <div
-                        className="mb-12 p-8 bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 rounded-2xl border border-primary/20 shadow-lg backdrop-blur-sm">
+                        className="mb-12 p-8 bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 rounded-2xl border border-amber-200 shadow-lg backdrop-blur-sm">
                         <div className="text-center">
                             <div
-                                className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
-                                <Trophy className="w-8 h-8 text-primary"/>
+                                className="inline-flex items-center justify-center w-16 h-16 bg-amber-100 rounded-full mb-4">
+                                <Trophy className="w-8 h-8 text-amber-600"/>
                             </div>
-                            <h3 className="text-2xl font-bold text-primary mb-3 flex items-center justify-center gap-2">
+                            <h3 className="text-2xl font-bold text-amber-700 mb-3 flex items-center justify-center gap-2">
                                 <Zap className="w-6 h-6"/>
                                 GRAPPLING PROFISSIONAL
                                 <Zap className="w-6 h-6"/>
                             </h3>
-                            <p className="text-muted-foreground text-lg font-medium">
+                            <p className="text-amber-800 text-lg font-medium">
                                 Pela primeira vez na Copa Magé! Premiação especial de{" "}
-                                <span className="text-primary font-bold">R$ 1.000</span> para o campeão.
+                                <span className="text-amber-700 font-bold">R$ 1.000</span> para o campeão.
                             </p>
                         </div>
                     </div>
@@ -123,7 +153,7 @@ export default function FightsPage() {
                                 key={luta.id_luta}
                                 className={`overflow-hidden shadow-xl border-0 bg-white/90 backdrop-blur-sm hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] ${
                                     luta.categoria === "Grappling Profissional"
-                                        ? "ring-2 ring-primary/20 bg-gradient-to-r from-primary/5 to-primary/10"
+                                        ? "ring-2 ring-amber-300/50 bg-gradient-to-r from-amber-50/30 to-yellow-50/30"
                                         : ""
                                 }`}
                                 style={{animationDelay: `${index * 100}ms`}}
@@ -150,7 +180,7 @@ export default function FightsPage() {
                                     <div className="flex items-center gap-4 text-sm text-muted-foreground">
                                         <div className="flex items-center gap-2 bg-white/60 px-3 py-1 rounded-full">
                                             <Clock className="w-4 h-4 text-primary"/>
-                                            <span className="font-medium">{luta.regras}</span>
+                                            <span className="font-medium">{(luta as any).horario || "A definir"}</span>
                                         </div>
                                     </div>
                                 </CardHeader>
@@ -261,8 +291,11 @@ export default function FightsPage() {
                                 className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                                 <Users className="w-12 h-12 text-gray-400"/>
                             </div>
-                            <p className="text-muted-foreground text-lg">Nenhuma luta encontrada para esta
-                                categoria.</p>
+                            <p className="text-muted-foreground text-lg">
+                                {searchTerm
+                                    ? "Nenhuma luta encontrada para esta busca."
+                                    : "Nenhuma luta encontrada para esta categoria."}
+                            </p>
                         </div>
                     )}
                 </div>
