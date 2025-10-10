@@ -6,7 +6,7 @@ export interface Athlete {
     nome: string
     foto: string
     data_nascimento: string
-    idade: number
+    idade: string
     faixa: string
     equipe: {
         nome: string

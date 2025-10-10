@@ -399,7 +399,7 @@ export default function HomePage() {
       </footer>
 
       {/* Floating alert for fights */}
-      {/*<Link href="/lutas">
+      <Link href="/lutas">
         <div className="fixed bottom-6 left-6 z-50 group cursor-pointer">
           <div className="bg-primary text-primary-foreground p-4 rounded-full shadow-lg hover:scale-110 transition-all duration-300 animate-pulse">
             <Swords className="w-6 h-6" />
@@ -411,7 +411,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </Link>*/}
+      </Link>
 
       <RegistrationForm
         isOpen={isRegistrationOpen && isRegistrationStillOpen}

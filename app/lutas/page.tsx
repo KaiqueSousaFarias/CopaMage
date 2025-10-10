@@ -24,17 +24,17 @@ const statusLabels = {
 }
 
 const beltColors = {
-    branca: "bg-white text-gray-800 border-gray-300 shadow-sm",
-    cinza: "bg-gray-200 text-gray-800 border-gray-300 shadow-sm",
-    amarela: "bg-yellow-400 text-gray-900 shadow-md",
-    laranja: "bg-orange-400 text-white shadow-md",
-    verde: "bg-green-500 text-white shadow-md",
-    azul: "bg-blue-500 text-white shadow-md",
-    roxa: "bg-purple-500 text-white shadow-md",
-    marrom: "bg-amber-700 text-white shadow-md",
-    preta: "bg-gray-900 text-white shadow-md",
-    coral: "bg-gradient-to-r from-orange-400 via-pink-500 to-purple-600 text-white shadow-md",
-    vermelha: "bg-red-600 text-white shadow-md",
+    BRANCA: "bg-white text-gray-800 border-gray-300 shadow-sm",
+    CINZA: "bg-gray-200 text-gray-800 border-gray-300 shadow-sm",
+    AMARELA: "bg-yellow-400 text-gray-900 shadow-md",
+    LARANJA: "bg-orange-400 text-white shadow-md",
+    VERDE: "bg-green-500 text-white shadow-md",
+    AZUL: "bg-blue-500 text-white shadow-md",
+    ROXA: "bg-purple-500 text-white shadow-md",
+    MARROM: "bg-amber-700 text-white shadow-md",
+    PRETA: "bg-gray-900 text-white shadow-md",
+    CORAL: "bg-gradient-to-r from-red-600 via-red-900 to-black",
+    VERMELHA: "bg-red-600 text-white shadow-md",
 }
 
 export default function LutasPage() {

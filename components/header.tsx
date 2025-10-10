@@ -57,13 +57,13 @@ export function Header() {
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex items-center gap-6">
-                    {/*<Link
+                    <Link
                         href="lutas"
                         className={`transition-colors ${usePathname() === "/lutas" ? "text-primary font-semibold" : "text-foreground hover:text-primary"
                             }`}
                     >
                         Lutas
-                    </Link>*/}
+                    </Link>
                     <button onClick={() => scrollToSection("sobre")} className="text-foreground hover:text-primary transition-colors">
                         Sobre
                     </button>
