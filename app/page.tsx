@@ -67,6 +67,47 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Patrocinadores */}
+      <section id="patrocinadores" className="py-16 px-4">
+        <div className="container mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12">Patrocinadores</h2>
+
+          <div
+              className="grid gap-8 justify-items-center grid-cols-[repeat(auto-fit,_minmax(180px,_1fr))]"
+          >
+            {sponsors.map((sponsor, index) => {
+              const Card = (
+                  <div
+                      className="flex items-center justify-center p-4 sm:p-5 md:p-6
+                       bg-card rounded-lg shadow-[0_6px_24px_rgba(0,0,0,0.06)]
+                       hover:scale-105 hover:shadow-lg hover:bg-muted/50
+                       transition-transform duration-300 border border-transparent"
+                  >
+                    <img
+                        src={sponsor.logo || "/placeholder.svg"}
+                        alt={sponsor.name || "Logo de patrocinador"}
+                        className="max-w-full max-h-24 sm:max-h-28 md:max-h-32 object-contain"
+                    />
+                  </div>
+              );
+
+              return sponsor.url ? (
+                  <a
+                      key={index}
+                      href={sponsor.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                  >
+                    {Card}
+                  </a>
+              ) : (
+                  <div key={index}>{Card}</div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Sobre o Evento */}
       <section id="sobre" className="py-16 px-4 bg-card">
         <div className="container mx-auto">
@@ -247,30 +288,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Patrocinadores */}
-      <section id="patrocinadores" className="py-16 px-4">
-        <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Patrocinadores</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-            {sponsors.map((sponsor, index) => (
-              <a
-                key={index}
-                href={sponsor.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center p-6 bg-card rounded-lg shadow-[0_6px_24px_rgba(0,0,0,0.06)] hover:scale-105 transition-transform border-0"
-              >
-                <img
-                  src={sponsor.logo || "/placeholder.svg"}
-                  alt={sponsor.name}
-                  className="max-w-full max-h-16 md:max-h-20 lg:max-h-24 object-contain"
-                />
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Localização */}
       <section id="localizacao" className="py-16 px-4 bg-card">
         <div className="container mx-auto">
@@ -278,12 +295,12 @@ export default function HomePage() {
           <div className="max-w-4xl mx-auto">
             <div className="bg-background rounded-lg shadow-[0_6px_24px_rgba(0,0,0,0.06)] p-6 mb-8">
               <div className="flex items-start gap-4">
-                <MapPin className="w-6 h-6 text-primary mt-1" />
+                <MapPin className="w-6 h-6 text-primary mt-1"/>
                 <div>
                   <h3 className="font-semibold text-lg mb-2">Ginásio Poliesportivo Renato Medeiros</h3>
                   <p className="text-muted-foreground">
                     Av. Automóvel Clube, 3334-3410 - Fragoso
-                    <br />
+                    <br/>
                     Magé - RJ, 25900-000
                   </p>
                 </div>
