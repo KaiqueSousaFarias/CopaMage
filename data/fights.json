@@ -937,9 +937,9 @@
           "id_luta": "luta-117",
           "categoria": "BRANCA ADULTO E MASTER",
           "horario": "17:35 às 18:35",
-          "status_luta": "confirmada",
+          "status_luta": "pendente",
           "atleta_a_id": "242",
-          "atleta_b_id": "243"
+          "atleta_b_id": "0"
         },
         {
           "id_luta": "luta-118",
@@ -1193,9 +1193,9 @@
           "id_luta": "luta-149",
           "categoria": "15 ANOS",
           "horario": "15:05 às 15:50",
-          "status_luta": "pendente",
+          "status_luta": "confirmada",
           "atleta_a_id": "193",
-          "atleta_b_id": "0"
+          "atleta_b_id": "410"
         },
         {
           "id_luta": "luta-150",
@@ -1211,7 +1211,7 @@
           "horario": "12:06 às 12:30",
           "status_luta": "pendente",
           "atleta_a_id": "140",
-          "atleta_b_id": "0"
+          "atleta_b_id": "409"
         },
         {
           "id_luta": "luta-152",
@@ -1235,7 +1235,7 @@
           "horario": "10:37 às 11:01",
           "status_luta": "pendente",
           "atleta_a_id": "56",
-          "atleta_b_id": "0"
+          "atleta_b_id": "407"
         },
         {
           "id_luta": "luta-155",
@@ -1345,9 +1345,9 @@
           "id_luta": "luta-168",
           "categoria": "BRANCA ADULTO E MASTER",
           "horario": "17:35 às 18:35",
-          "status_luta": "pendente",
+          "status_luta": "confirmada",
           "atleta_a_id": "310",
-          "atleta_b_id": "0"
+          "atleta_b_id": "411"
         },
         {
           "id_luta": "luta-169",
@@ -1407,11 +1407,11 @@
         },
         {
           "id_luta": "luta-176",
-          "categoria": "14 ANOS",
+          "categoria": "12 ANOS",
           "horario": "14:35 às 15:05",
           "status_luta": "pendente",
           "atleta_a_id": "149",
-          "atleta_b_id": "0"
+          "atleta_b_id": "408"
         },
         {
           "id_luta": "luta-177",

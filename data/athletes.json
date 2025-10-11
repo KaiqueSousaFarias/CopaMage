@@ -676,8 +676,8 @@
     "nome": "PAULO MIGUEL",
     "foto": "/image/placeholder.jpg",
     "data_nascimento": "",
-    "idade": "10",
-    "faixa": "BRANCA",
+    "idade": "9",
+    "faixa": "CINZA",
     "equipe": {
       "nome": "LEAO DE CRISTO",
       "logo": "/LEAODECRISTO.png"
@@ -4857,6 +4857,66 @@
     "equipe": {
       "nome": "GFTEAM",
       "logo": "/GFTEAM.png"
+    }
+  },
+  {
+    "id": "407",
+    "nome": "GABRIEL RODRIGUES",
+    "foto": "/image/placeholder.jpg",
+    "data_nascimento": "",
+    "idade": "10",
+    "faixa": "AMARELA",
+    "equipe": {
+      "nome": "PITBULL",
+      "logo": "/PITBULL.png"
+    }
+  },
+  {
+    "id": "408",
+    "nome": "ANA LUYZA",
+    "foto": "/image/placeholder.jpg",
+    "data_nascimento": "",
+    "idade": "12",
+    "faixa": "AMARELA",
+    "equipe": {
+      "nome": "IVC",
+      "logo": "/IVC.png"
+    }
+  },
+  {
+    "id": "409",
+    "nome": "ISABELA SANTOS",
+    "foto": "/image/placeholder.jpg",
+    "data_nascimento": "",
+    "idade": "13",
+    "faixa": "CINZA",
+    "equipe": {
+      "nome": "HAZÁQ JJ",
+      "logo": "/HAZAQJJ.png"
+    }
+  },
+  {
+    "id": "410",
+    "nome": "LEONAN VIEIRA",
+    "foto": "/image/placeholder.jpg",
+    "data_nascimento": "",
+    "idade": "16",
+    "faixa": "BRANCA",
+    "equipe": {
+    "nome": "300",
+    "logo": "/300.png"
+    }
+  },
+  {
+    "id": "411",
+    "nome": "LUCAS DA SILVA",
+    "foto": "/image/placeholder.jpg",
+    "data_nascimento": "",
+    "idade": "22",
+    "faixa": "BRANCA",
+    "equipe": {
+      "nome": "300",
+      "logo": "/300.png"
     }
   }
 ]
