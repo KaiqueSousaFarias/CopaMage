@@ -106,14 +106,14 @@ export function Header() {
             {isMenuOpen && (
                 <div className="md:hidden bg-background border-t border-border">
                     <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
-                        {/*<Link
+                        <Link
                             href="/lutas"
                             className={`text-left transition-colors ${pathname === "/lutas" ? "text-primary font-semibold" : "text-foreground hover:text-primary"
                                 }`}
                             onClick={() => setIsMenuOpen(false)}
                         >
                             Lutas
-                        </Link>*/}
+                        </Link>
                         <button onClick={() => scrollToSection("sobre")} className="text-left text-foreground hover:text-primary transition-colors">
                             Sobre
                         </button>
