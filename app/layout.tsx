@@ -25,10 +25,11 @@ export default function RootLayout({
             {/* Script do AdSense para Auto Ads */}
             <Script
                 async
-                src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-${process.env.ADSENSE_CLIENT_ID}`}
+                src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7401469931656779`}
                 strategy="afterInteractive" // Carrega após interatividade
                 crossOrigin="anonymous"
             />
+            <meta name="google-adsense-account" content="ca-pub-7401469931656779"/>
         </head>
         <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         {children}
