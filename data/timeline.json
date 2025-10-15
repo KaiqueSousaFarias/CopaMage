@@ -2,103 +2,87 @@
   "timeline": [
     {
       "time": "09:00",
-      "event": "Festival"
+      "event": "Execução do Hino Nacional Brasileiro"
+    },
+    {
+      "time": "09:10",
+      "event": "Início do Festival Kids"
     },
     {
       "time": "09:30",
-      "event": "Início das lutas - Categoria 5 à 9 anos"
+      "event": "Crianças de 05 a 07 anos"
     },
     {
-      "time": "10:06",
-      "event": "Término das lutas - Categoria 5 à 9 anos"
+      "time": "09:40",
+      "event": "Crianças de 08 anos"
     },
     {
-      "time": "10:37",
-      "event": "Início das lutas - Categoria 10 anos"
+      "time": "09:45",
+      "event": "Crianças de 09 anos"
     },
     {
-      "time": "11:01",
-      "event": "Término das lutas - Categoria 10 anos"
+      "time": "10:10",
+      "event": "Crianças de 10 anos"
     },
     {
-      "time": "11:02",
-      "event": "Início das lutas - Categoria 11 anos"
+      "time": "10:50",
+      "event": "Crianças de 11 anos"
     },
     {
-      "time": "11:35",
-      "event": "Término das lutas - Categoria 11 anos"
+      "time": "11:30",
+      "event": "Crianças de 12 anos"
     },
     {
-      "time": "11:36",
-      "event": "Início das lutas - Categoria 12 anos"
-    },
-    {
-      "time": "12:05",
-      "event": "Término das lutas - Categoria 12 anos"
-    },
-    {
-      "time": "12:06",
-      "event": "Início das lutas - Categoria 13 anos"
+      "time": "12:00",
+      "event": "Crianças de 13 anos"
     },
     {
       "time": "12:30",
-      "event": "Término das lutas - Categoria 13 anos"
-    },
-    {
-      "time": "12:30",
-      "event": "Início das lutas - Categoria Preta"
+      "event": "Faixa Preta"
     },
     {
       "time": "13:00",
-      "event": "Término das lutas - Categoria Preta"
-    },
-    {
-      "time": "13:00",
-      "event": "Início das lutas - Categoria Marrom"
+      "event": "Faixa Marrom"
     },
     {
       "time": "13:30",
-      "event": "Término das lutas - Categoria Marrom"
-    },
-    {
-      "time": "13:30",
-      "event": "Início das lutas - Categoria Roxa"
+      "event": "Faixa Roxa"
     },
     {
       "time": "13:50",
-      "event": "Término das lutas - Categoria Roxa"
+      "event": "No-Gi (todas as faixas)"
     },
     {
       "time": "14:35",
-      "event": "Início das lutas - Categoria Azul"
+      "event": "14 anos (todas as faixas)"
     },
     {
       "time": "15:05",
-      "event": "Término das lutas - Categoria Azul"
-    },
-    {
-      "time": "15:05",
-      "event": "Início das lutas - Categoria 15 anos"
+      "event": "15 anos (todas as faixas)"
     },
     {
       "time": "15:50",
-      "event": "Término das lutas - Categoria 15 anos"
+      "event": "Juvenil 1 e 2 Faixa Branca"
     },
     {
       "time": "16:35",
-      "event": "Início das lutas - Categoria Azul"
+      "event": "Faixa Azul (todas as idades)"
     },
     {
       "time": "17:35",
-      "event": "Término das lutas - Categoria Azul"
+      "event": "Faixa Branca (adulto)"
     },
     {
-      "time": "17:35",
-      "event": "Início das lutas - Grande Prêmio Profissional e Amador"
+      "time": "18:30",
+      "event": "GP No-Gi Profissional e Amador"
     },
     {
-      "time": "18:35",
-      "event": "Término das lutas - Grande Prêmio Profissional e Amador"
+      "time": "18:40",
+      "event": "Premiação Geral e Encerramento"
+    },
+    {
+      "time": "19:00",
+      "event": "Previsão de encerramento"
     }
   ]
 }

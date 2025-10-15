@@ -142,6 +142,26 @@ export default function CronogramaTimeline() {
                 </div>
             </section>
 
+            {/* Aviso */}
+            <section className="px-4 pb-3">
+                <div className="container mx-auto max-w-5xl">
+                    <Card className="border-l-4 border-yellow-400 bg-yellow-50 mb-6">
+                        <CardContent className="flex items-center gap-3 py-4">
+                            <Clock className="h-6 w-6 text-yellow-600"/>
+                            <div>
+                                <p className="font-semibold text-yellow-800">
+                                    Atenção atletas: Chegue pelo menos <span
+                                    className="underline">30 minutos antes</span> do seu horário de luta.
+                                </p>
+                                <p className="text-sm text-yellow-700">
+                                    As lutas podem ser adiantadas conforme andamento do evento.
+                                </p>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
+            </section>
+
             {/* Busca + ação */}
             <section className="px-4 pb-3">
                 <div className="container mx-auto max-w-5xl">
@@ -173,7 +193,7 @@ export default function CronogramaTimeline() {
             {/* Timeline */}
             <section className="px-4 pb-16">
                 <div className="container mx-auto max-w-4xl">
-                    <div ref={containerRef} className="relative max-h-[70vh] overflow-auto rounded-lg border bg-card">
+                    <div ref={containerRef} className="relative rounded-lg border bg-card">
                         <ul className="relative space-y-6 p-4">
                             {/* trilho vertical */}
                             <div

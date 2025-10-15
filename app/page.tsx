@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import {useEffect, useMemo, useState} from "react"
 import { Header } from "@/components/header"
 import { Countdown } from "@/components/countdown"
 import { RegistrationForm } from "@/components/registration-form"
@@ -23,6 +23,16 @@ export default function HomePage() {
     if (!isRegistrationStillOpen) return
     setIsRegistrationOpen(true)
   }
+
+  const [eventStarted, setEventStarted] = useState(false)
+  useEffect(() => {
+    const target = new Date("2025-10-15T00:00:00-03:00").getTime()
+    const tick = () => setEventStarted(Date.now() >= target)
+    tick()
+    const id = window.setInterval(tick, 1000)
+    return () => clearInterval(id)
+  }, [])
+
 
 
   return (
@@ -49,21 +59,25 @@ export default function HomePage() {
           </div>
 
           <div className="mb-8">
-            <h3 className="text-lg font-semibold mb-4">Contagem Regressiva</h3>
-            <Countdown />
+            {!eventStarted && <h3 className="text-lg font-semibold mb-4">Contagem Regressiva</h3>}
+            <Countdown/>
           </div>
 
-          {isRegistrationStillOpen ? (
-            <Button
-              size="lg"
-              onClick={tryOpenRegistration}
-              className="text-lg px-8 py-6 hover:scale-105 transition-transform"
-            >
-              Inscreva-se Agora
-            </Button>
-          ) : (
-            <p className="mt-4 text-sm text-muted-foreground">*Inscrições encerradas</p>
+
+          {!eventStarted && isRegistrationStillOpen ? (
+              <Button
+                  size="lg"
+                  onClick={tryOpenRegistration}
+                  className="text-lg px-8 py-6 hover:scale-105 transition-transform"
+              >
+                Inscreva-se Agora
+              </Button>
+          ) : null}
+
+          {!eventStarted && !isRegistrationStillOpen && (
+              <p className="mt-4 text-sm text-muted-foreground">*Inscrições encerradas</p>
           )}
+
         </div>
       </section>
 
