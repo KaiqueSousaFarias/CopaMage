@@ -167,15 +167,7 @@
           "horario": "10:37 às 11:01",
           "status_luta": "confirmada",
           "atleta_a_id": "38",
-          "atleta_b_id": "39"
-        },
-        {
-          "id_luta": "luta-021",
-          "categoria": "10 ANOS",
-          "horario": "10:37 às 11:01",
-          "status_luta": "confirmada",
-          "atleta_a_id": "40",
-          "atleta_b_id": "41"
+          "atleta_b_id": "40"
         },
         {
           "id_luta": "luta-022",
