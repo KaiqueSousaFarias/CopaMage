@@ -4037,7 +4037,7 @@
     "foto": "/image/placeholder.jpg",
     "data_nascimento": "",
     "idade": "",
-    "faixa": "PG",
+    "faixa": "",
     "equipe": {
       "nome": "ZINHO TEAM",
       "logo": "/ZINHOTEAM.png"
@@ -4073,7 +4073,7 @@
     "foto": "/image/placeholder.jpg",
     "data_nascimento": "",
     "idade": "11",
-    "faixa": "PG",
+    "faixa": "",
     "equipe": {
       "nome": "ZINHO TEAM",
       "logo": "/ZINHOTEAM.png"
@@ -4085,7 +4085,7 @@
     "foto": "/image/placeholder.jpg",
     "data_nascimento": "",
     "idade": "5",
-    "faixa": "PG",
+    "faixa": "",
     "equipe": {
       "nome": "HAZAQ",
       "logo": "/team/HAZAQJJ.png"
@@ -4097,7 +4097,7 @@
     "foto": "/image/placeholder.jpg",
     "data_nascimento": "",
     "idade": "5",
-    "faixa": "PG",
+    "faixa": "",
     "equipe": {
       "nome": "CT RAPHAEL VIEIRA",
       "logo": "/CTRAPHAELVIEIRA.png"
@@ -4109,7 +4109,7 @@
     "foto": "/image/placeholder.jpg",
     "data_nascimento": "",
     "idade": "12",
-    "faixa": "PG",
+    "faixa": "",
     "equipe": {
       "nome": "ZINHO TEAM",
       "logo": "/ZINHOTEAM.png"
@@ -4205,7 +4205,7 @@
     "foto": "/image/placeholder.jpg",
     "data_nascimento": "",
     "idade": "21",
-    "faixa": "M",
+    "faixa": "MARROM",
     "equipe": {
       "nome": "LEÃO DE CRISTO",
       "logo": "/LEÃODECRISTO.png"
@@ -4557,18 +4557,6 @@
     "equipe": {
       "nome": "CT RAPHAEL VIEIRA",
       "logo": "/CTRAPHAELVIEIRA.png"
-    }
-  },
-  {
-    "id": "380",
-    "nome": "GEOVANNA FRANÇA",
-    "foto": "/image/placeholder.jpg",
-    "data_nascimento": "",
-    "idade": "16",
-    "faixa": "BRANCA",
-    "equipe": {
-      "nome": "LEÃO DE CRISTO",
-      "logo": "/LEÃODECRISTO.png"
     }
   },
   {
@@ -5037,6 +5025,30 @@
     "equipe": {
       "nome": "HAZAQ",
       "logo": "/team/HAZAQJJ.png"
+    }
+  },
+  {
+    "id": "425",
+    "nome": "MICALLY DE SOUZA CUNHA",
+    "foto": "/image/placeholder.jpg",
+    "data_nascimento": "",
+    "idade": "",
+    "faixa": "",
+    "equipe": {
+      "nome": "NR JIUJITSU",
+      "logo": "/NRJIUJITSU.png"
+    }
+  },
+  {
+    "id": "426",
+    "nome": "ISABELA COELHO",
+    "foto": "/image/placeholder.jpg",
+    "data_nascimento": "",
+    "idade": "",
+    "faixa": "CINZA",
+    "equipe": {
+      "nome": "CARLOS HENRIQUE JJ",
+      "logo": "/CHJJ.png"
     }
   }
 ]

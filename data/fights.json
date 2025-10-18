@@ -990,7 +990,7 @@
           "categoria": "BRANCA JUVENIL",
           "horario": "15:50 às 16:35",
           "status_luta": "confirmada",
-          "atleta_a_id": "256",
+          "atleta_a_id": "281",
           "atleta_b_id": "257"
         },
         {
@@ -1434,6 +1434,30 @@
           "atleta_b_id": "0"
         },
         {
+          "id_luta": "luta-1800",
+          "categoria": "FESTIVAL KIDS",
+          "horario": "09:00",
+          "status_luta": "confirmada",
+          "atleta_a_id": "366",
+          "atleta_b_id": "0"
+        },
+        {
+          "id_luta": "luta-1801",
+          "categoria": "FESTIVAL KIDS",
+          "horario": "09:00",
+          "status_luta": "confirmada",
+          "atleta_a_id": "425",
+          "atleta_b_id": "0"
+        },
+        {
+          "id_luta": "luta-1802",
+          "categoria": "FESTIVAL KIDS",
+          "horario": "09:00",
+          "status_luta": "confirmada",
+          "atleta_a_id": "426",
+          "atleta_b_id": "0"
+        },
+        {
           "id_luta": "luta-181",
           "categoria": "FESTIVAL KIDS",
           "horario": "09:00",
@@ -1648,14 +1672,6 @@
           "status_luta": "confirmada",
           "atleta_a_id": "364",
           "atleta_b_id": "379"
-        },
-        {
-          "id_luta": "luta-208",
-          "categoria": "NO GI",
-          "horario": "13:50 ÀS 14:35",
-          "status_luta": "pendente",
-          "atleta_a_id": "380",
-          "atleta_b_id": "0"
         },
         {
           "id_luta": "luta-209",
