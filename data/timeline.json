@@ -1,0 +1,104 @@
+{
+  "timeline": [
+    {
+      "time": "09:00",
+      "event": "Festival"
+    },
+    {
+      "time": "09:30",
+      "event": "Início das lutas - Categoria 5 à 9 anos"
+    },
+    {
+      "time": "10:06",
+      "event": "Término das lutas - Categoria 5 à 9 anos"
+    },
+    {
+      "time": "10:37",
+      "event": "Início das lutas - Categoria 10 anos"
+    },
+    {
+      "time": "11:01",
+      "event": "Término das lutas - Categoria 10 anos"
+    },
+    {
+      "time": "11:02",
+      "event": "Início das lutas - Categoria 11 anos"
+    },
+    {
+      "time": "11:35",
+      "event": "Término das lutas - Categoria 11 anos"
+    },
+    {
+      "time": "11:36",
+      "event": "Início das lutas - Categoria 12 anos"
+    },
+    {
+      "time": "12:05",
+      "event": "Término das lutas - Categoria 12 anos"
+    },
+    {
+      "time": "12:06",
+      "event": "Início das lutas - Categoria 13 anos"
+    },
+    {
+      "time": "12:30",
+      "event": "Término das lutas - Categoria 13 anos"
+    },
+    {
+      "time": "12:30",
+      "event": "Início das lutas - Categoria Preta"
+    },
+    {
+      "time": "13:00",
+      "event": "Término das lutas - Categoria Preta"
+    },
+    {
+      "time": "13:00",
+      "event": "Início das lutas - Categoria Marrom"
+    },
+    {
+      "time": "13:30",
+      "event": "Término das lutas - Categoria Marrom"
+    },
+    {
+      "time": "13:30",
+      "event": "Início das lutas - Categoria Roxa"
+    },
+    {
+      "time": "13:50",
+      "event": "Término das lutas - Categoria Roxa"
+    },
+    {
+      "time": "14:35",
+      "event": "Início das lutas - Categoria Azul"
+    },
+    {
+      "time": "15:05",
+      "event": "Término das lutas - Categoria Azul"
+    },
+    {
+      "time": "15:05",
+      "event": "Início das lutas - Categoria 15 anos"
+    },
+    {
+      "time": "15:50",
+      "event": "Término das lutas - Categoria 15 anos"
+    },
+    {
+      "time": "16:35",
+      "event": "Início das lutas - Categoria Azul"
+    },
+    {
+      "time": "17:35",
+      "event": "Término das lutas - Categoria Azul"
+    },
+    {
+      "time": "17:35",
+      "event": "Início das lutas - Grande Prêmio Profissional e Amador"
+    },
+    {
+      "time": "18:35",
+      "event": "Término das lutas - Grande Prêmio Profissional e Amador"
+    }
+  ]
+}

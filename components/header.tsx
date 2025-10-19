@@ -64,6 +64,16 @@ export function Header() {
                     >
                         Lutas
                     </Link>
+                    <Link
+                        href="cronograma"
+                        className={`transition-colors ${usePathname() === "/cronograma" ? "text-primary font-semibold" : "text-foreground hover:text-primary"
+                        }`}
+                    >
+                        Cronograma
+                    </Link>
+                    <button onClick={() => scrollToSection("patrocinadores")} className="text-foreground hover:text-primary transition-colors">
+                        Patrocinadores
+                    </button>
                     <button onClick={() => scrollToSection("sobre")} className="text-foreground hover:text-primary transition-colors">
                         Sobre
                     </button>
@@ -72,9 +82,6 @@ export function Header() {
                     </button>
                     <button onClick={() => scrollToSection("ingressos")} className="text-foreground hover:text-primary transition-colors">
                         Ingressos
-                    </button>
-                    <button onClick={() => scrollToSection("patrocinadores")} className="text-foreground hover:text-primary transition-colors">
-                        Patrocinadores
                     </button>
                     <button onClick={() => scrollToSection("localizacao")} className="text-foreground hover:text-primary transition-colors">
                         Localização
@@ -114,6 +121,17 @@ export function Header() {
                         >
                             Lutas
                         </Link>
+                        <Link
+                            href="/cronograma"
+                            className={`text-left transition-colors ${pathname === "/cronograma" ? "text-primary font-semibold" : "text-foreground hover:text-primary"
+                                }`}
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            Cronograma
+                        </Link>
+                        <button onClick={() => scrollToSection("patrocinadores")} className="text-left text-foreground hover:text-primary transition-colors">
+                            Patrocinadores
+                        </button>
                         <button onClick={() => scrollToSection("sobre")} className="text-left text-foreground hover:text-primary transition-colors">
                             Sobre
                         </button>
@@ -122,9 +140,6 @@ export function Header() {
                         </button>
                         <button onClick={() => scrollToSection("ingressos")} className="text-left text-foreground hover:text-primary transition-colors">
                             Ingressos
-                        </button>
-                        <button onClick={() => scrollToSection("patrocinadores")} className="text-left text-foreground hover:text-primary transition-colors">
-                            Patrocinadores
                         </button>
                         <button onClick={() => scrollToSection("localizacao")} className="text-left text-foreground hover:text-primary transition-colors">
                             Localização

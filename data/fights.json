@@ -4,6 +4,10 @@
       "id_evento": "1",
       "nome_evento": "6ª Copa Magé de Jiu-Jitsu",
       "data_evento": "2025-10-19T00:00:00",
+      "local_evento": "Ginásio Poliesportivo de Magé - RJ",
+      "organizadores": "Equipe Jiu-Jitsu Magé",
+      "status_evento": "confirmado",
+      "horario_evento": "09:00 às 20:00",
       "lutas": [
         {
           "id_luta": "luta-001",
@@ -35,7 +39,7 @@
           "horario": "09:30 às 10:06",
           "status_luta": "confirmada",
           "atleta_a_id": "6",
-          "atleta_b_id": "5"
+          "atleta_b_id": "46"
         },
         {
           "id_luta": "luta-005",
@@ -299,7 +303,7 @@
           "horario": "11:02 às 11:35",
           "status_luta": "confirmada",
           "atleta_a_id": "75",
-          "atleta_b_id": "76"
+          "atleta_b_id": "412"
         },
         {
           "id_luta": "luta-038",
@@ -1222,14 +1226,6 @@
           "atleta_b_id": "0"
         },
         {
-          "id_luta": "luta-153",
-          "categoria": "10 ANOS",
-          "horario": "10:37 às 11:01",
-          "status_luta": "pendente",
-          "atleta_a_id": "46",
-          "atleta_b_id": "0"
-        },
-        {
           "id_luta": "luta-154",
           "categoria": "10 ANOS",
           "horario": "10:37 às 11:01",
@@ -1626,7 +1622,7 @@
           "categoria": "NO GI",
           "horario": "13:50 ÀS 14:35",
           "status_luta": "confirmada",
-          "atleta_a_id": "360",
+          "atleta_a_id": "415",
           "atleta_b_id": "375"
         },
         {
@@ -1710,30 +1706,6 @@
           "atleta_b_id": "390"
         },
         {
-          "id_luta": "luta-215",
-          "categoria": "MARROM",
-          "horario": "13:00 às 13:30",
-          "status_luta": "pendente",
-          "atleta_a_id": "391",
-          "atleta_b_id": "0"
-        },
-        {
-          "id_luta": "luta-216",
-          "categoria": "MARROM",
-          "horario": "13:00 às 13:30",
-          "status_luta": "pendente",
-          "atleta_a_id": "392",
-          "atleta_b_id": "0"
-        },
-        {
-          "id_luta": "luta-217",
-          "categoria": "MARROM",
-          "horario": "13:00 às 13:30",
-          "status_luta": "cancelada",
-          "atleta_a_id": "393",
-          "atleta_b_id": "0"
-        },
-        {
           "id_luta": "luta-218",
           "categoria": "PRETA",
           "horario": "12:30 às 13:00",
@@ -1788,6 +1760,102 @@
           "status_luta": "confirmada",
           "atleta_a_id": "400",
           "atleta_b_id": "406"
+        },
+        {
+          "id_luta": "luta-225",
+          "categoria": "BRANCA JUVENIL",
+          "horario": "15:50 às 16:35",
+          "status_luta": "confirmada",
+          "atleta_a_id": "413",
+          "atleta_b_id": "414"
+        },
+        {
+          "id_luta": "luta-256",
+          "categoria": "NO GI",
+          "horario": "13:50 ÀS 14:35",
+          "status_luta": "confirmada",
+          "atleta_a_id": "369",
+          "atleta_b_id": "354"
+        },
+        {
+          "id_luta": "luta-257",
+          "categoria": "GP AMADOR",
+          "horario": "18:35 ÀS 19:00",
+          "status_luta": "confirmada",
+          "atleta_a_id": "416",
+          "atleta_b_id": "0"
+        },
+        {
+          "id_luta": "luta-258",
+          "categoria": "GP AMADOR",
+          "horario": "18:35 ÀS 19:00",
+          "status_luta": "confirmada",
+          "atleta_a_id": "417",
+          "atleta_b_id": "0"
+        },
+        {
+          "id_luta": "luta-259",
+          "categoria": "GP AMADOR",
+          "horario": "18:35 ÀS 19:00",
+          "status_luta": "confirmada",
+          "atleta_a_id": "418",
+          "atleta_b_id": "0"
+        },
+        {
+          "id_luta": "luta-260",
+          "categoria": "GP AMADOR",
+          "horario": "18:35 ÀS 19:00",
+          "status_luta": "confirmada",
+          "atleta_a_id": "419",
+          "atleta_b_id": "0"
+        },
+        {
+          "id_luta": "luta-261",
+          "categoria": "GP AMADOR",
+          "horario": "18:35 ÀS 19:00",
+          "status_luta": "confirmada",
+          "atleta_a_id": "420",
+          "atleta_b_id": "0"
+        },
+        {
+          "id_luta": "luta-262",
+          "categoria": "GP PROFISSIONAL",
+          "horario": "18:35 ÀS 19:00",
+          "status_luta": "confirmada",
+          "atleta_a_id": "421",
+          "atleta_b_id": "0"
+        },
+        {
+          "id_luta": "luta-263",
+          "categoria": "GP PROFISSIONAL",
+          "horario": "18:35 ÀS 19:00",
+          "status_luta": "confirmada",
+          "atleta_a_id": "422",
+          "atleta_b_id": "0"
+        },
+        {
+          "id_luta": "luta-264",
+          "categoria": "GP PROFISSIONAL",
+          "horario": "18:35 ÀS 19:00",
+          "status_luta": "confirmada",
+          "atleta_a_id": "423",
+          "atleta_b_id": "0"
+        },
+        {
+          "id_luta": "luta-265",
+          "categoria": "GP PROFISSIONAL",
+          "horario": "18:35 ÀS 19:00",
+          "status_luta": "confirmada",
+          "atleta_a_id": "298",
+          "atleta_b_id": "0"
+        },
+        {
+          "id_luta": "luta-266",
+          "categoria": "GP PROFISSIONAL",
+          "horario": "18:35 ÀS 19:00",
+          "status_luta": "confirmada",
+          "atleta_a_id": "315",
+          "atleta_b_id": "0"
         }
       ]
     }
