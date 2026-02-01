@@ -1,11 +1,11 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { isRegistrationStillOpen as isRegistrationStillOpenUtil } from "@/lib/utils"
+import { isRegistrationStillOpen as isRegistrationStillOpenUtil, cn } from "@/lib/utils"
 import { WHATSAPP_BASE_URL, EVENT_INFO } from "@/lib/constants"
 
 interface HeaderProps {
@@ -58,7 +58,7 @@ export function Header({ onOpenRegistration }: HeaderProps) {
                     </div>
                     <div>
                         <h1 className="font-bold text-xl uppercase tracking-tighter text-primary">7ª Copa Magé</h1>
-                        <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground">Jiu-Jitsu Champion</p>
+                        <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground">Jiu-Jitsu Championship</p>
                     </div>
                 </Link>
 
@@ -73,35 +73,56 @@ export function Header({ onOpenRegistration }: HeaderProps) {
                     >
                         Cronograma
                     </Link>
-                    <button onClick={() => scrollToSection("sobre")} className="text-foreground hover:text-primary transition-colors">
+                    <Link href="/#sobre" onClick={() => scrollToSection("sobre")} className="text-foreground hover:text-primary transition-colors">
                         Sobre
-                    </button>
-                    <button onClick={() => scrollToSection("patrocinadores")} className="text-foreground hover:text-primary transition-colors">
+                    </Link>
+                    <Link href="/#patrocinadores" onClick={() => scrollToSection("patrocinadores")} className="text-foreground hover:text-primary transition-colors">
                         Patrocinadores
-                    </button>
-                    <button onClick={() => scrollToSection("destaques")} className="text-foreground hover:text-primary transition-colors">
+                    </Link>
+                    <Link href="/#destaques" onClick={() => scrollToSection("destaques")} className="text-foreground hover:text-primary transition-colors">
                         Destaques
-                    </button>
-                    <button onClick={() => scrollToSection("ingressos")} className="text-foreground hover:text-primary transition-colors">
+                    </Link>
+                    <Link href="/#ingressos" onClick={() => scrollToSection("ingressos")} className="text-foreground hover:text-primary transition-colors">
                         Ingressos
-                    </button>
-                    <button onClick={() => scrollToSection("localizacao")} className="text-foreground hover:text-primary transition-colors">
+                    </Link>
+                    <Link href="/#localizacao" onClick={() => scrollToSection("localizacao")} className="text-foreground hover:text-primary transition-colors">
                         Localização
-                    </button>
-                    <button onClick={() => scrollToSection("contato")} className="text-foreground hover:text-primary transition-colors">
+                    </Link>
+                    <Link href="/#contato" onClick={() => scrollToSection("contato")} className="text-foreground hover:text-primary transition-colors">
                         Contato
-                    </button>
+                    </Link>
                 </nav>
 
                 <div className="flex items-center gap-4">
                     {isRegistrationStillOpen ? (
-                        <Button onClick={handleRegistrationClick} aria-label="Abrir inscrição via WhatsApp" className="hidden sm:inline-flex bg-primary text-primary-foreground font-bold uppercase tracking-wider hover:bg-primary/90 rounded-none px-6 active:scale-95 transition-all">
+                        <Link
+                            href={onOpenRegistration ? "#" : `${WHATSAPP_BASE_URL}?text=Olá! Gostaria de me inscrever na ${EVENT_INFO.name}`}
+                            target={onOpenRegistration ? undefined : "_blank"}
+                            rel={onOpenRegistration ? undefined : "noopener noreferrer"}
+                            onClick={(e) => {
+                                if (onOpenRegistration) {
+                                    e.preventDefault()
+                                    handleRegistrationClick()
+                                }
+                            }}
+                            aria-label="Abrir inscrição via WhatsApp"
+                            className={cn(
+                                buttonVariants({ variant: "default" }),
+                                "hidden sm:inline-flex bg-primary text-primary-foreground font-bold uppercase tracking-wider hover:bg-primary/90 rounded-none px-6 active:scale-95 transition-all"
+                            )}
+                        >
                             Inscreva-se
-                        </Button>
+                        </Link>
                     ) : (
-                        <Button disabled className="hidden sm:inline-flex rounded-none opacity-50" aria-disabled title="Inscrições encerradas">
+                        <span
+                            className={cn(
+                                buttonVariants({ variant: "default" }),
+                                "hidden sm:inline-flex rounded-none opacity-50 cursor-not-allowed bg-muted text-muted-foreground"
+                            )}
+                            title="Inscrições encerradas"
+                        >
                             Encerrado
-                        </Button>
+                        </span>
                     )}
 
                     {/* Mobile Menu Button */}
@@ -124,33 +145,95 @@ export function Header({ onOpenRegistration }: HeaderProps) {
                         >
                             Cronograma
                         </Link>
-                        <button onClick={() => scrollToSection("sobre")} className="text-left text-foreground hover:text-primary transition-colors">
+                        <Link
+                            href="/#sobre"
+                            onClick={(e) => {
+                                e.preventDefault()
+                                scrollToSection("sobre")
+                            }}
+                            className="text-left text-foreground hover:text-primary transition-colors"
+                        >
                             Sobre
-                        </button>
-                        <button onClick={() => scrollToSection("patrocinadores")} className="text-left text-foreground hover:text-primary transition-colors">
+                        </Link>
+                        <Link
+                            href="/#patrocinadores"
+                            onClick={(e) => {
+                                e.preventDefault()
+                                scrollToSection("patrocinadores")
+                            }}
+                            className="text-left text-foreground hover:text-primary transition-colors"
+                        >
                             Patrocinadores
-                        </button>
-                        <button onClick={() => scrollToSection("destaques")} className="text-left text-foreground hover:text-primary transition-colors">
+                        </Link>
+                        <Link
+                            href="/#destaques"
+                            onClick={(e) => {
+                                e.preventDefault()
+                                scrollToSection("destaques")
+                            }}
+                            className="text-left text-foreground hover:text-primary transition-colors"
+                        >
                             Destaques
-                        </button>
-                        <button onClick={() => scrollToSection("ingressos")} className="text-left text-foreground hover:text-primary transition-colors">
+                        </Link>
+                        <Link
+                            href="/#ingressos"
+                            onClick={(e) => {
+                                e.preventDefault()
+                                scrollToSection("ingressos")
+                            }}
+                            className="text-left text-foreground hover:text-primary transition-colors"
+                        >
                             Ingressos
-                        </button>
-                        <button onClick={() => scrollToSection("localizacao")} className="text-left text-foreground hover:text-primary transition-colors">
+                        </Link>
+                        <Link
+                            href="/#localizacao"
+                            onClick={(e) => {
+                                e.preventDefault()
+                                scrollToSection("localizacao")
+                            }}
+                            className="text-left text-foreground hover:text-primary transition-colors"
+                        >
                             Localização
-                        </button>
-                        <button onClick={() => scrollToSection("contato")} className="text-left text-foreground hover:text-primary transition-colors">
+                        </Link>
+                        <Link
+                            href="/#contato"
+                            onClick={(e) => {
+                                e.preventDefault()
+                                scrollToSection("contato")
+                            }}
+                            className="text-left text-foreground hover:text-primary transition-colors"
+                        >
                             Contato
-                        </button>
+                        </Link>
 
                         {isRegistrationStillOpen ? (
-                            <Button onClick={handleRegistrationClick} className="w-full sm:hidden">
+                            <Link
+                                href={onOpenRegistration ? "#" : `${WHATSAPP_BASE_URL}?text=Olá! Gostaria de me inscrever na ${EVENT_INFO.name}`}
+                                target={onOpenRegistration ? undefined : "_blank"}
+                                rel={onOpenRegistration ? undefined : "noopener noreferrer"}
+                                onClick={(e) => {
+                                    if (onOpenRegistration) {
+                                        e.preventDefault()
+                                        handleRegistrationClick()
+                                    }
+                                }}
+                                className={cn(
+                                    buttonVariants({ variant: "default" }),
+                                    "w-full sm:hidden font-bold uppercase tracking-wider"
+                                )}
+                            >
                                 Inscreva-se
-                            </Button>
+                            </Link>
                         ) : (
-                            <Button disabled aria-disabled className="w-full sm:hidden" title="Inscrições encerradas">
+                            <span
+                                className={cn(
+                                    buttonVariants({ variant: "default" }),
+                                    "w-full sm:hidden opacity-50 cursor-not-allowed bg-muted text-muted-foreground font-bold uppercase tracking-wider text-center py-2"
+                                )}
+                                title="Inscrições encerradas"
+                            >
                                 Inscrições encerradas
-                            </Button>
+                            </span>
                         )}
                     </nav>
                 </div>

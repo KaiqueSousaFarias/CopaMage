@@ -4,11 +4,13 @@ import React, { useMemo, useRef, useState } from "react"
 import { Header } from "@/components/header"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, Clock, Search, Navigation, ChevronRight } from "lucide-react"
+import Link from "next/link"
 import data from "@/data/timeline.json"
 import { EVENT_INFO } from "@/lib/constants"
+import { cn } from "@/lib/utils"
 
 type TLItem = { time: string; event: string }
 const TIMELINE = (data as { timeline: TLItem[] }).timeline
@@ -180,16 +182,21 @@ export default function CronogramaTimeline() {
                                 className="bg-[#141414] border-white/10 pl-12 h-14 text-lg font-bold uppercase tracking-widest focus:border-primary rounded-none transition-all"
                             />
                         </div>
-                        <Button
-                            variant="outline"
-                            size="lg"
-                            onClick={() => scrollToAgora()}
-                            disabled={nextIdx === null}
-                            className="border-white/10 hover:border-primary hover:bg-primary/10 rounded-none uppercase font-black tracking-widest h-14"
+                        <Link
+                            href="#"
+                            onClick={(e) => {
+                                e.preventDefault()
+                                scrollToAgora()
+                            }}
+                            className={cn(
+                                buttonVariants({ variant: "outline", size: "lg" }),
+                                "border-white/10 hover:border-primary hover:bg-primary/10 rounded-none uppercase font-black tracking-widest h-14 w-full flex items-center justify-center",
+                                nextIdx === null && "opacity-50 cursor-not-allowed pointer-events-none"
+                            )}
                         >
                             <Navigation className="h-5 w-5 mr-3" />
                             O que está acontecendo AGORA?
-                        </Button>
+                        </Link>
                     </div>
                 </div>
             </section>

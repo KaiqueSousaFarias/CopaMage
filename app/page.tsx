@@ -4,13 +4,13 @@ import { useEffect, useMemo, useState } from "react"
 import { Header } from "@/components/header"
 import { Countdown } from "@/components/countdown"
 import { RegistrationForm } from "@/components/registration-form"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Trophy, Award, Users, MapPin, Phone, Mail, Instagram, Swords } from "lucide-react"
 import sponsors from "@/data/sponsors.json"
 import Link from "next/link";
 import { WHATSAPP_BASE_URL, EVENT_INFO } from "@/lib/constants"
-import { isRegistrationStillOpen as isRegistrationStillOpenUtil } from "@/lib/utils"
+import { isRegistrationStillOpen as isRegistrationStillOpenUtil, cn } from "@/lib/utils"
 
 export default function HomePage() {
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(false)
@@ -97,23 +97,39 @@ export default function HomePage() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
             {isRegistrationStillOpen ? (
-              <Button
-                size="lg"
-                onClick={tryOpenRegistration}
+              <Link
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault()
+                  tryOpenRegistration()
+                }}
                 aria-label="Abrir formulário de inscrição"
-                className="bg-primary hover:bg-primary/90 text-black text-xl font-black px-12 py-8 uppercase tracking-widest rounded-none shadow-[0_0_50px_rgba(212,175,55,0.3)] transition-all hover:scale-105 active:scale-95"
+                className={cn(
+                  buttonVariants({ variant: "default", size: "lg" }),
+                  "bg-primary hover:bg-primary/90 text-black text-xl font-black px-12 py-8 uppercase tracking-widest rounded-none shadow-[0_0_50px_rgba(212,175,55,0.3)] transition-all hover:scale-105 active:scale-95"
+                )}
               >
                 Inscreva-se Agora
-              </Button>
+              </Link>
             ) : (
-              <Button disabled size="lg" className="rounded-none opacity-50 px-12 py-8 text-xl uppercase font-black">
+              <span
+                className={cn(
+                  buttonVariants({ variant: "default", size: "lg" }),
+                  "rounded-none opacity-50 px-12 py-8 text-xl uppercase font-black cursor-not-allowed bg-muted text-muted-foreground"
+                )}
+              >
                 Inscrições Encerradas
-              </Button>
+              </span>
             )}
-            <Link href="#sobre">
-              <Button variant="outline" size="lg" aria-label="Ver detalhes do evento" className="border-white/20 hover:border-primary text-white text-xl font-bold px-12 py-8 uppercase rounded-none transition-all hover:bg-white/5 active:scale-95">
-                Ver Detalhes
-              </Button>
+            <Link
+              href="#sobre"
+              aria-label="Ver detalhes do evento"
+              className={cn(
+                buttonVariants({ variant: "outline", size: "lg" }),
+                "border-white/20 hover:border-primary text-white text-xl font-bold px-12 py-8 uppercase rounded-none transition-all hover:bg-white/5 active:scale-95"
+              )}
+            >
+              Ver Detalhes
             </Link>
           </div>
         </div>
@@ -323,14 +339,20 @@ export default function HomePage() {
         </div>
       </footer>
 
-      {/* Botão Flutuante Mobile */}
       <div className="md:hidden fixed bottom-6 right-6 z-50">
-        <Button
-          onClick={tryOpenRegistration}
-          className="bg-primary text-black font-black w-14 h-14 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.5)] flex items-center justify-center p-0"
+        <Link
+          href="#"
+          onClick={(e) => {
+            e.preventDefault()
+            tryOpenRegistration()
+          }}
+          className={cn(
+            buttonVariants({ variant: "default" }),
+            "bg-primary text-black font-black w-14 h-14 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.5)] flex items-center justify-center p-0"
+          )}
         >
           👉
-        </Button>
+        </Link>
       </div>
 
       <RegistrationForm
