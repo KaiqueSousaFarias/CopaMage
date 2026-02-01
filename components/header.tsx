@@ -5,16 +5,18 @@ import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { isRegistrationStillOpen as isRegistrationStillOpenUtil } from "@/lib/utils"
+import { WHATSAPP_BASE_URL, EVENT_INFO } from "@/lib/constants"
 
-export function Header() {
+interface HeaderProps {
+    onOpenRegistration?: () => void
+}
+
+export function Header({ onOpenRegistration }: HeaderProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const pathname = usePathname()
 
-    const isRegistrationStillOpen = useMemo(() => {
-        const now = new Date()
-        const deadline = new Date("2025-09-25T23:59:59-03:00")
-        return now <= deadline
-    }, [])
+    const isRegistrationStillOpen = useMemo(() => isRegistrationStillOpenUtil(), [])
 
     const scrollToSection = (id: string) => {
         if (pathname !== "/") {
@@ -28,54 +30,54 @@ export function Header() {
         }
     }
 
-    const openWhatsApp = () => {
+    const handleRegistrationClick = () => {
         if (!isRegistrationStillOpen) return
-        window.open(
-            "https://wa.me/5521988708875?text=Olá! Gostaria de me inscrever na 6ª Copa Magé de Jiu-Jitsu",
-            "_blank",
-        )
+
+        if (onOpenRegistration) {
+            onOpenRegistration()
+            setIsMenuOpen(false)
+        } else {
+            window.open(
+                `${WHATSAPP_BASE_URL}?text=Olá! Gostaria de me inscrever na ${EVENT_INFO.name}`,
+                "_blank",
+            )
+        }
     }
 
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+        <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-primary/20">
             <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-                <Link href="/" className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-sm overflow-hidden">
+                <Link href="/" className="flex items-center gap-3 active:scale-95 transition-transform">
+                    <div className="w-10 h-10 rounded-sm overflow-hidden flex items-center justify-center">
                         <img
                             src="/image/hazaq-logo.png"
-                            alt="Hazaq Jiu Jitsu - Professor Ezequiel"
-                            className="w-full h-full object-cover"
+                            alt="7ª Copa Magé"
+                            className="w-full h-full object-contain"
                         />
                     </div>
                     <div>
-                        <h1 className="font-bold text-lg leading-tight">Copa Magé</h1>
-                        <p className="text-sm text-muted-foreground">Jiu-Jitsu 2025</p>
+                        <h1 className="font-bold text-xl uppercase tracking-tighter text-primary">7ª Copa Magé</h1>
+                        <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground">Jiu-Jitsu Champion</p>
                     </div>
                 </Link>
 
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex items-center gap-6">
-                    <Link
-                        href="lutas"
-                        className={`transition-colors ${usePathname() === "/lutas" ? "text-primary font-semibold" : "text-foreground hover:text-primary"
-                            }`}
-                    >
-                        Lutas
-                    </Link>
+
                     <Link
                         href="cronograma"
                         className={`transition-colors ${usePathname() === "/cronograma" ? "text-primary font-semibold" : "text-foreground hover:text-primary"
-                        }`}
+                            }`}
                     >
                         Cronograma
                     </Link>
-                    <button onClick={() => scrollToSection("patrocinadores")} className="text-foreground hover:text-primary transition-colors">
-                        Patrocinadores
-                    </button>
                     <button onClick={() => scrollToSection("sobre")} className="text-foreground hover:text-primary transition-colors">
                         Sobre
+                    </button>
+                    <button onClick={() => scrollToSection("patrocinadores")} className="text-foreground hover:text-primary transition-colors">
+                        Patrocinadores
                     </button>
                     <button onClick={() => scrollToSection("destaques")} className="text-foreground hover:text-primary transition-colors">
                         Destaques
@@ -93,12 +95,12 @@ export function Header() {
 
                 <div className="flex items-center gap-4">
                     {isRegistrationStillOpen ? (
-                        <Button onClick={openWhatsApp} className="hidden sm:inline-flex">
+                        <Button onClick={handleRegistrationClick} aria-label="Abrir inscrição via WhatsApp" className="hidden sm:inline-flex bg-primary text-primary-foreground font-bold uppercase tracking-wider hover:bg-primary/90 rounded-none px-6 active:scale-95 transition-all">
                             Inscreva-se
                         </Button>
                     ) : (
-                        <Button disabled className="hidden sm:inline-flex" aria-disabled title="Inscrições encerradas">
-                            Inscrições encerradas
+                        <Button disabled className="hidden sm:inline-flex rounded-none opacity-50" aria-disabled title="Inscrições encerradas">
+                            Encerrado
                         </Button>
                     )}
 
@@ -113,14 +115,7 @@ export function Header() {
             {isMenuOpen && (
                 <div className="md:hidden bg-background border-t border-border">
                     <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
-                        <Link
-                            href="/lutas"
-                            className={`text-left transition-colors ${pathname === "/lutas" ? "text-primary font-semibold" : "text-foreground hover:text-primary"
-                                }`}
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            Lutas
-                        </Link>
+
                         <Link
                             href="/cronograma"
                             className={`text-left transition-colors ${pathname === "/cronograma" ? "text-primary font-semibold" : "text-foreground hover:text-primary"
@@ -129,11 +124,11 @@ export function Header() {
                         >
                             Cronograma
                         </Link>
-                        <button onClick={() => scrollToSection("patrocinadores")} className="text-left text-foreground hover:text-primary transition-colors">
-                            Patrocinadores
-                        </button>
                         <button onClick={() => scrollToSection("sobre")} className="text-left text-foreground hover:text-primary transition-colors">
                             Sobre
+                        </button>
+                        <button onClick={() => scrollToSection("patrocinadores")} className="text-left text-foreground hover:text-primary transition-colors">
+                            Patrocinadores
                         </button>
                         <button onClick={() => scrollToSection("destaques")} className="text-left text-foreground hover:text-primary transition-colors">
                             Destaques
@@ -149,7 +144,7 @@ export function Header() {
                         </button>
 
                         {isRegistrationStillOpen ? (
-                            <Button onClick={openWhatsApp} className="w-full sm:hidden">
+                            <Button onClick={handleRegistrationClick} className="w-full sm:hidden">
                                 Inscreva-se
                             </Button>
                         ) : (

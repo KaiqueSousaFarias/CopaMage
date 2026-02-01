@@ -4,80 +4,64 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated color tokens to match Copa Magé design brief with red accent (#DC2626) */
-  --background: oklch(1 0 0); /* White background */
-  --foreground: oklch(0.145 0 0); /* Dark gray text */
-  --card: oklch(0.98 0 0); /* Light gray card background */
-  --card-foreground: oklch(0.145 0 0); /* Dark gray card text */
-  --popover: oklch(1 0 0); /* White popover */
-  --popover-foreground: oklch(0.145 0 0); /* Dark gray popover text */
-  --primary: oklch(0.55 0.22 27.33); /* Red #DC2626 for primary actions */
-  --primary-foreground: oklch(1 0 0); /* White text on red */
-  --secondary: oklch(0.98 0 0); /* Light gray secondary */
-  --secondary-foreground: oklch(0.145 0 0); /* Dark gray secondary text */
-  --muted: oklch(0.98 0 0); /* Light gray muted */
-  --muted-foreground: oklch(0.45 0 0); /* Medium gray muted text */
-  --accent: oklch(0.55 0.22 27.33); /* Red accent matching primary */
-  --accent-foreground: oklch(1 0 0); /* White text on red accent */
-  --destructive: oklch(0.55 0.22 27.33); /* Red for destructive actions */
-  --destructive-foreground: oklch(1 0 0); /* White text on destructive */
-  --border: oklch(0.92 0 0); /* Light gray borders */
-  --input: oklch(1 0 0); /* White input fields */
-  --ring: oklch(0.55 0.22 27.33 / 0.5); /* Semi-transparent red focus ring */
-  --chart-1: oklch(0.55 0.22 27.33); /* Red for charts */
-  --chart-2: oklch(0.98 0 0); /* Light gray for charts */
-  --chart-3: oklch(0.145 0 0); /* Dark gray for charts */
-  --chart-4: oklch(1 0 0); /* White for charts */
-  --chart-5: oklch(0.45 0 0); /* Medium gray for charts */
-  --radius: 0.5rem; /* Rounded corners */
-  --sidebar: oklch(1 0 0); /* White sidebar */
-  --sidebar-foreground: oklch(0.145 0 0); /* Dark gray sidebar text */
-  --sidebar-primary: oklch(0.55 0.22 27.33); /* Red sidebar primary */
-  --sidebar-primary-foreground: oklch(1 0 0); /* White sidebar primary text */
-  --sidebar-accent: oklch(0.98 0 0); /* Light gray sidebar accent */
-  --sidebar-accent-foreground: oklch(0.145 0 0); /* Dark gray sidebar accent text */
-  --sidebar-border: oklch(0.92 0 0); /* Light gray sidebar border */
-  --sidebar-ring: oklch(0.55 0.22 27.33 / 0.5); /* Semi-transparent red sidebar ring */
+  /* Copa Magé Modern Sports Design System */
+  --background: oklch(0.15 0 0); /* Black Graphite #0f0f0f-ish */
+  --foreground: oklch(0.98 0 0); /* Pure White contrast #ffffff */
+  
+  --card: oklch(0.18 0.01 0); /* Slightly lighter graphite for cards */
+  --card-foreground: oklch(0.98 0 0);
+  
+  --popover: oklch(0.15 0 0);
+  --popover-foreground: oklch(0.98 0 0);
+  
+  --primary: oklch(0.77 0.15 85); /* Gold Metallic #d4af37-ish */
+  --primary-foreground: oklch(0.15 0 0);
+  
+  --secondary: oklch(0.65 0.25 45); /* Laranja Fogo #ff7a00-ish */
+  --secondary-foreground: oklch(0.98 0 0);
+  
+  --accent: oklch(0.55 0.22 25); /* Vermelho Escuro #b11212-ish */
+  --accent-foreground: oklch(0.98 0 0);
+  
+  --muted: oklch(0.25 0 0);
+  --muted-foreground: oklch(0.75 0 0);
+  
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  
+  --border: oklch(0.25 0 0);
+  --input: oklch(0.2 0 0);
+  --ring: oklch(0.77 0.15 85 / 0.5);
+  
+  --radius: 0.25rem; /* Sharper corners for sports feel */
+  
+  --chart-1: oklch(0.77 0.15 85);
+  --chart-2: oklch(0.65 0.25 45);
+  --chart-3: oklch(0.55 0.22 25);
+  --chart-4: oklch(0.98 0 0);
+  --chart-5: oklch(0.45 0 0);
+
+  --sidebar: oklch(0.15 0 0);
+  --sidebar-foreground: oklch(0.98 0 0);
+  --sidebar-primary: oklch(0.77 0.15 85);
+  --sidebar-primary-foreground: oklch(0.15 0 0);
+  --sidebar-accent: oklch(0.18 0.01 0);
+  --sidebar-accent-foreground: oklch(0.98 0 0);
+  --sidebar-border: oklch(0.25 0 0);
+  --sidebar-ring: oklch(0.77 0.15 85 / 0.5);
 }
 
+/* Dark mode by default for this design */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+  --background: oklch(0.15 0 0);
+  --foreground: oklch(0.98 0 0);
 }
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular;
+  --font-sport: "Inter", "Outfit", sans-serif; /* Strong condensed replacement */
+  
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -102,9 +86,9 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
   --radius-xl: calc(var(--radius) + 4px);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
@@ -134,3 +118,32 @@
 }
 
 
+@layer utilities {
+  .ai-notice {
+    @apply absolute bottom-2 right-2 flex items-center gap-1.5 px-2 py-1 bg-black/40 backdrop-blur-md border border-white/10 text-[9px] uppercase font-bold tracking-widest text-white/50 pointer-events-none select-none;
+  }
+}
+
+/* Custom Scrollbar for Premium Feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.85 0.15 85);
+}
+
+/* Improved Clickability for Buttons */
+button, .button-style {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+button:active:not(:disabled), .button-style:active:not(:disabled) {
+  transform: scale(0.95);
+  filter: brightness(0.9);
+}

@@ -1,20 +1,21 @@
 "use client"
 
-import React, {useMemo, useRef, useState} from "react"
-import {Header} from "@/components/header"
-import {Card, CardContent} from "@/components/ui/card"
-import {Input} from "@/components/ui/input"
-import {Button} from "@/components/ui/button"
-import {Badge} from "@/components/ui/badge"
-import {Calendar, Clock, Search, Navigation} from "lucide-react"
+import React, { useMemo, useRef, useState } from "react"
+import { Header } from "@/components/header"
+import { Card, CardContent } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { Calendar, Clock, Search, Navigation, ChevronRight } from "lucide-react"
 import data from "@/data/timeline.json"
+import { EVENT_INFO } from "@/lib/constants"
 
 type TLItem = { time: string; event: string }
 const TIMELINE = (data as { timeline: TLItem[] }).timeline
 
 // === Config do evento ===
 const EVENT_TZ = "America/Sao_Paulo"
-const EVENT_DATE_YMD = {y: 2025, m: 10, d: 19} // 19/10/2025
+const EVENT_DATE_YMD = { y: 2026, m: 4, d: 21 } // 21/04/2026
 
 // --- utils horário/data ---
 const toMinutes = (hhmm: string) => {
@@ -44,7 +45,7 @@ function todayYMDInTZ() {
     const d = Number(parts.find((p) => p.type === "day")?.value ?? "0")
     const m = Number(parts.find((p) => p.type === "month")?.value ?? "0")
     const y = Number(parts.find((p) => p.type === "year")?.value ?? "0")
-    return {y, m, d}
+    return { y, m, d }
 }
 
 function cmpDateTZ() {
@@ -110,7 +111,7 @@ export default function CronogramaTimeline() {
         const cont = containerRef.current
         if (!el || !cont) return
         const paddingTop = 16
-        cont.scrollTo({top: el.offsetTop - cont.offsetTop - paddingTop, behavior})
+        cont.scrollTo({ top: el.offsetTop - cont.offsetTop - paddingTop, behavior })
     }
 
     const setLiRef = (el: HTMLLIElement | null, i: number) => {
@@ -118,141 +119,122 @@ export default function CronogramaTimeline() {
     }
 
     return (
-        <div className="min-h-screen bg-background">
-            <Header/>
+        <div className="min-h-screen bg-[#0f0f0f] text-white font-sport selection:bg-primary selection:text-black">
+            <Header />
 
-            {/* Hero */}
-            <section className="pt-24 pb-4 px-4">
-                <div className="container mx-auto max-w-5xl">
+            {/* Hero Section - Impactful */}
+            <section className="relative pt-40 pb-20 px-4 overflow-hidden">
+                <div className="absolute inset-0 z-0">
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] to-[#0f0f0f]"></div>
+                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
+                </div>
+
+                <div className="container relative z-10 mx-auto max-w-5xl">
                     <div className="text-center">
-                        <h1 className="text-4xl md:text-5xl font-bold mb-3">
-                            <span className="text-primary">Cronograma</span> do Evento
+                        <div className="inline-block px-4 py-1 border border-primary/40 bg-primary/10 text-primary text-xs font-bold uppercase tracking-[0.3em] mb-6">
+                            Horários das Chaves
+                        </div>
+                        <h1 className="text-5xl md:text-8xl font-black mb-6 tracking-tighter uppercase italic leading-none">
+                            CRONOGRAMA <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">PROVISÓRIO</span>
                         </h1>
-                        <div className="flex items-center justify-center gap-4 text-muted-foreground">
-                            <div className="inline-flex items-center gap-2 bg-muted/40 rounded-full px-3 py-1">
-                                <Calendar className="h-4 w-4 text-primary"/>
-                                <span className="text-sm font-medium">19/10/2025 • Magé–RJ</span>
+                        <p className="text-muted-foreground italic text-sm">O cronograma é provisório e pode sofrer alterações.</p>
+                        <div className="flex flex-wrap items-center justify-center gap-6 text-muted-foreground uppercase text-xs font-bold tracking-[0.2em]">
+                            <div className="flex items-center gap-2">
+                                <Calendar className="h-4 w-4 text-primary" />
+                                <span>{EVENT_INFO.date}</span>
                             </div>
-                            <div className="inline-flex items-center gap-2 bg-muted/40 rounded-full px-3 py-1">
-                                <Clock className="h-4 w-4 text-primary"/>
-                                <span className="text-sm font-medium">{filtered.length} horários previstos</span>
+                            <div className="flex items-center gap-2">
+                                <Clock className="h-4 w-4 text-primary" />
+                                <span>{filtered.length} Atividades</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Aviso */}
-            <section className="px-4 pb-3">
-                <div className="container mx-auto max-w-5xl">
-                    <Card className="border-l-4 border-yellow-400 bg-yellow-50 mb-6">
-                        <CardContent className="flex items-center gap-3 py-4">
-                            <Clock className="h-6 w-6 text-yellow-600"/>
-                            <div>
-                                <p className="font-semibold text-yellow-800">
-                                    Atenção atletas: Chegue pelo menos <span
-                                    className="underline">30 minutos antes</span> do seu horário de luta.
-                                </p>
-                                <p className="text-sm text-yellow-700">
-                                    As lutas podem ser adiantadas conforme andamento do evento.
-                                </p>
-                            </div>
-                        </CardContent>
-                    </Card>
+            {/* Alerta de Chegada */}
+            <section className="px-4 pb-8">
+                <div className="container mx-auto max-w-2xl">
+                    <div className="bg-[#141414] border-l-4 border-primary p-6 flex items-center gap-6 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                        <div className="bg-primary/10 p-4 rounded-full">
+                            <Clock className="h-8 w-8 text-primary" />
+                        </div>
+                        <div>
+                            <p className="font-black text-xl uppercase italic tracking-tight">CHEGUE CEDO</p>
+                            <p className="text-muted-foreground italic text-sm">Compareça com 30 minutos de antecedência. O cronograma pode sofrer adiantamentos.</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            {/* Busca + ação */}
-            <section className="px-4 pb-3">
-                <div className="container mx-auto max-w-5xl">
-                    <Card className="border-0 shadow-[0_6px_24px_rgba(0,0,0,0.06)]">
-                        <CardContent className="py-4">
-                            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                                <div className="relative w-full md:max-w-xl">
-                                    <Input
-                                        value={query}
-                                        onChange={(e) => setQuery(e.target.value)}
-                                        placeholder="Buscar por ‘Azul’, ‘11 anos’, ‘Preta’, horário…"
-                                        className="pl-10"
-                                    />
-                                    <Search
-                                        className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground"/>
-                                </div>
-
-                                <Button variant="outline" size="sm" onClick={() => scrollToAgora()}
-                                        disabled={nextIdx === null}>
-                                    <Navigation className="h-4 w-4 mr-2"/>
-                                    Ir para AGORA
-                                </Button>
-                            </div>
-                        </CardContent>
-                    </Card>
+            {/* Busca e Controle */}
+            <section className="px-4 pb-12">
+                <div className="container mx-auto max-w-2xl">
+                    <div className="flex flex-col gap-4">
+                        <div className="relative">
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-primary" />
+                            <Input
+                                value={query}
+                                onChange={(e) => setQuery(e.target.value)}
+                                placeholder="FILTRAR POR FAIXA OU CATEGORIA..."
+                                className="bg-[#141414] border-white/10 pl-12 h-14 text-lg font-bold uppercase tracking-widest focus:border-primary rounded-none transition-all"
+                            />
+                        </div>
+                        <Button
+                            variant="outline"
+                            size="lg"
+                            onClick={() => scrollToAgora()}
+                            disabled={nextIdx === null}
+                            className="border-white/10 hover:border-primary hover:bg-primary/10 rounded-none uppercase font-black tracking-widest h-14"
+                        >
+                            <Navigation className="h-5 w-5 mr-3" />
+                            O que está acontecendo AGORA?
+                        </Button>
+                    </div>
                 </div>
             </section>
 
-            {/* Timeline */}
-            <section className="px-4 pb-16">
-                <div className="container mx-auto max-w-4xl">
-                    <div ref={containerRef} className="relative rounded-lg border bg-card">
-                        <ul className="relative space-y-6 p-4">
-                            {/* trilho vertical */}
-                            <div
-                                className="absolute left-4 md:left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-border"/>
-                            {filtered.map((item, i) => {
-                                const st = statusFor(item.idx)
-                                const isAgora = dayState === "same" && nextIdx !== null && item.idx === nextIdx
-                                const isPast = st === "concluído"
+            {/* Timeline List */}
+            <section className="px-4 pb-32">
+                <div className="container mx-auto max-w-3xl">
+                    <div ref={containerRef} className="relative space-y-4">
+                        {filtered.map((item, i) => {
+                            const st = statusFor(item.idx)
+                            const isAgora = dayState === "same" && nextIdx !== null && item.idx === nextIdx
+                            const isPast = st === "concluído"
 
-                                return (
-                                    <li key={`${item.time}-${i}`} ref={(el) => setLiRef(el, i)}
-                                        className="relative flex items-start">
-                                        {/* ponto */}
-                                        <div
-                                            className={[
-                                                "z-10 mt-1 h-3 w-3 rounded-full border-2",
-                                                isAgora
-                                                    ? "bg-destructive border-destructive"
-                                                    : isPast
-                                                        ? "bg-muted border-muted-foreground/30"
-                                                        : "bg-background border-border",
-                                                "relative left-4 md:left-1/2 -translate-x-1/2",
-                                            ].join(" ")}
-                                        />
+                            return (
+                                <div key={`${item.time}-${i}`} ref={(el) => setLiRef(el as any, i)} className="group">
+                                    <div className={`
+                                        flex items-center gap-6 p-6 transition-all duration-300
+                                        border ${isAgora ? 'border-primary bg-primary/5 shadow-[0_0_30px_rgba(212,175,55,0.1)]' : 'border-white/5 bg-[#141414] skew-x-[-2deg]'}
+                                        ${isPast ? 'opacity-40' : ''}
+                                    `}>
+                                        <div className="shrink-0 text-center w-24">
+                                            <p className={`text-2xl font-black italic leading-none ${isAgora ? 'text-primary' : 'text-white'}`}>{item.time}</p>
+                                            <p className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground mt-1">Status</p>
+                                        </div>
 
-                                        {/* cartão */}
-                                        <div className="flex-1 grid md:grid-cols-2 md:gap-6 w-full">
-                                            <div className="md:text-right pr-6 md:pr-10 md:order-1">
-                                                <div
-                                                    className={["inline-flex items-center gap-2 text-sm", isAgora ? "text-destructive" : "text-muted-foreground"].join(" ")}>
-                                                    <Clock className="h-4 w-4"/>
-                                                    <span className="font-semibold">{item.time}</span>
-                                                    {isAgora && <Badge variant="destructive">AGORA</Badge>}
-                                                </div>
-                                            </div>
+                                        <div className="w-px h-12 bg-white/10"></div>
 
-                                            <div className="md:order-2">
-                                                <Card
-                                                    className={[
-                                                        "border-0 shadow-[0_6px_24px_rgba(0,0,0,0.06)] relative overflow-hidden",
-                                                        isPast && "opacity-75",
-                                                        isAgora && "ring-2 ring-destructive/60",
-                                                    ].join(" ")}
-                                                >
-                                                    {isAgora && <div
-                                                        className="pointer-events-none absolute inset-0 bg-destructive/10"/>}
-                                                    {isAgora && <div
-                                                        className="absolute left-0 top-0 bottom-0 w-1 bg-destructive"/>}
-                                                    <CardContent className="py-4">
-                                                        <p className={["font-medium", isAgora ? "text-destructive" : ""].join(" ")}>{item.event}</p>
-                                                        <p className="text-xs text-muted-foreground mt-1">Status: {st}</p>
-                                                    </CardContent>
-                                                </Card>
+                                        <div className="flex-1">
+                                            <h3 className={`text-xl font-bold uppercase italic tracking-tight ${isAgora ? 'text-primary' : 'text-white'}`}>
+                                                {item.event}
+                                            </h3>
+                                            <div className="flex items-center gap-2 mt-2">
+                                                {isAgora ? (
+                                                    <Badge className="bg-primary text-black font-black animate-pulse rounded-none">EM ANDAMENTO</Badge>
+                                                ) : (
+                                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">{st}</span>
+                                                )}
                                             </div>
                                         </div>
-                                    </li>
-                                )
-                            })}
-                        </ul>
+
+                                        {isAgora && <ChevronRight className="text-primary h-8 w-8 animate-bounce-x" />}
+                                    </div>
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
             </section>

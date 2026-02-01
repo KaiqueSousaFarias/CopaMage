@@ -1,148 +1,258 @@
 "use client"
 
-import type React from "react"
-import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { EVENT_INFO, WHATSAPP_BASE_URL } from "@/lib/constants"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { X } from "lucide-react"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+
+const formSchema = z.object({
+  fullName: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
+  birthDate: z.string().regex(/^\d{2}\/\d{2}\/\d{4}$/, "Data inválida (DD/MM/AAAA)"),
+  weight: z.string().min(1, "Peso é obrigatório"),
+  belt: z.string().min(1, "Graduação é obrigatória"),
+  team: z.string().min(1, "Equipe é obrigatória"),
+})
 
 interface RegistrationFormProps {
   isOpen: boolean
   onClose: () => void
 }
 
-function formatDateBR(isoDate: string) {
-  // isoDate vem como "yyyy-mm-dd" do <input type="date" />
-  if (!isoDate) return ""
-  const [yyyy, mm, dd] = isoDate.split("-")
-  return `${dd}/${mm}/${yyyy}`
-}
-
 export function RegistrationForm({ isOpen, onClose }: RegistrationFormProps) {
-  const [fullName, setFullName] = useState("")
-  const [birthDate, setBirthDate] = useState("")
-  const [belt, setBelt] = useState("")
-  const [team, setTeam] = useState("")
-  const [weight, setWeight] = useState("") // Novo: Peso (kg)
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      fullName: "",
+      birthDate: "",
+      weight: "",
+      belt: "",
+      team: "",
+    },
+  })
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+  function formatBirthDate(value: string) {
+    return value
+      .replace(/\D/g, "")
+      .replace(/(\d{2})(\d)/, "$1/$2")
+      .replace(/(\d{2})(\d)/, "$1/$2")
+      .replace(/(\d{4})\d+?$/, "$1")
+  }
 
-    // Validação simples (Select do shadcn não respeita 'required')
-    if (fullName && birthDate && belt && team && weight) {
-      const birthDateBR = formatDateBR(birthDate)
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    const message =
+      `Olá! Gostaria de me inscrever na ${EVENT_INFO.name}.` +
+      `%0A%0A` +
+      `Nome Completo: ${encodeURIComponent(values.fullName)}` +
+      `%0AData de Nascimento: ${encodeURIComponent(values.birthDate)}` +
+      `%0AFaixa: ${encodeURIComponent(values.belt)}` +
+      `%0AEquipe: ${encodeURIComponent(values.team)}` +
+      `%0APeso: ${encodeURIComponent(`${values.weight} kg`)}`
 
-      const message =
-        `Olá! Gostaria de me inscrever na 6ª Copa Magé de Jiu-Jitsu.` +
-        `%0A%0A` +
-        `Nome Completo: ${encodeURIComponent(fullName)}` +
-        `%0AData de Nascimento: ${encodeURIComponent(birthDateBR)}` +
-        `%0AFaixa: ${encodeURIComponent(belt)}` +
-        `%0AEquipe: ${encodeURIComponent(team)}` +
-        `%0APeso: ${encodeURIComponent(`${weight} kg`)}`
+    window.open(`${WHATSAPP_BASE_URL}?text=${message}`, "_blank")
 
-      window.open(`https://wa.me/5521988708875?text=${message}`, "_blank")
-
-      onClose()
-      setFullName("")
-      setBirthDate("")
-      setBelt("")
-      setTeam("")
-      setWeight("")
-    }
+    form.reset()
+    onClose()
   }
 
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>Inscrição</CardTitle>
-          <Button variant="ghost" size="sm" onClick={onClose}>
-            <X size={20} />
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md p-4 animate-in fade-in duration-300"
+      onClick={onClose}
+    >
+      <Card
+        className="w-full max-w-md bg-[#0f0f0f] border-2 border-primary/30 rounded-none shadow-[0_0_80px_rgba(212,175,55,0.15)] relative overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Decorative corner */}
+        <div className="absolute top-0 right-0 w-16 h-16 bg-primary/10 -rotate-45 translate-x-8 -translate-y-8 pointer-events-none"></div>
+
+        <CardHeader className="flex flex-row items-center justify-between border-b border-white/10 pb-6">
+          <div className="space-y-1">
+            <CardTitle className="text-3xl font-black italic uppercase tracking-tighter leading-none">
+              Inscrição <span className="text-primary">Elite</span>
+            </CardTitle>
+            <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-primary/60">
+              {EVENT_INFO.name}
+            </p>
+          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onClose}
+            className="hover:bg-primary/20 hover:text-primary transition-all rounded-none active:scale-90"
+          >
+            <X size={24} />
           </Button>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <Label htmlFor="fullName">Nome Completo</Label>
-              <Input
-                id="fullName"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                placeholder="Digite seu nome completo"
-                required
+
+        <CardContent className="pt-8 max-h-[80vh] overflow-y-auto custom-scrollbar">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <FormField
+                control={form.control}
+                name="fullName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-[10px] uppercase font-black tracking-[0.2em] text-muted-foreground ml-1">
+                      Nome Completo
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="SEU NOME"
+                        className="bg-[#141414] border-white/5 rounded-none h-14 focus:border-primary/50 uppercase font-black tracking-tight text-lg placeholder:opacity-20 transition-all focus:ring-1 focus:ring-primary/20"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
 
-            <div>
-              <Label htmlFor="birthDate">Data de Nascimento</Label>
-              <Input
-                id="birthDate"
-                type="date"
-                value={birthDate}
-                onChange={(e) => setBirthDate(e.target.value)}
-                required
+              <div className="grid grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="birthDate"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel className="text-[10px] uppercase font-black tracking-[0.2em] text-muted-foreground ml-1">
+                        Nascimento
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="DD/MM/AAAA"
+                          maxLength={10}
+                          className="bg-[#141414] border-white/5 rounded-none h-14 focus:border-primary/50 uppercase font-black tracking-tight text-lg placeholder:opacity-20 transition-all focus:ring-1 focus:ring-primary/20"
+                          {...field}
+                          onChange={(e) => {
+                            field.onChange(formatBirthDate(e.target.value))
+                          }}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="weight"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-[10px] uppercase font-black tracking-[0.2em] text-muted-foreground ml-1">
+                        Peso (kg)
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          inputMode="decimal"
+                          step="0.1"
+                          placeholder="EX: 75.5"
+                          className="bg-[#141414] border-white/5 rounded-none h-14 focus:border-primary/50 uppercase font-black tracking-tight text-lg placeholder:opacity-20 transition-all focus:ring-1 focus:ring-primary/20"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <FormField
+                control={form.control}
+                name="belt"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-[10px] uppercase font-black tracking-[0.2em] text-muted-foreground ml-1">
+                      Sua Graduação
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="bg-[#141414] border-white/5 rounded-none h-14 focus:border-primary/50 uppercase font-black tracking-widest transition-all focus:ring-1 focus:ring-primary/20">
+                          <SelectValue placeholder="SELECIONE A FAIXA" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="bg-[#0f0f0f] border-primary/20 rounded-none z-[120]">
+                        {[
+                          "BRANCA",
+                          "CINZA",
+                          "AMARELA",
+                          "LARANJA",
+                          "VERDE",
+                          "AZUL",
+                          "ROXA",
+                          "MARROM",
+                          "PRETA",
+                        ].map((b) => (
+                          <SelectItem
+                            key={b}
+                            value={b}
+                            className="focus:bg-primary/20 focus:text-primary font-black uppercase tracking-widest text-xs py-3"
+                          >
+                            {b}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
 
-            <div>
-              <Label htmlFor="belt">Faixa</Label>
-              <Select value={belt} onValueChange={setBelt} required>
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione sua faixa" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="BRANCA">Branca</SelectItem>
-                  <SelectItem value="CINZA">Cinza</SelectItem>
-                  <SelectItem value="AMARELA">Amarela</SelectItem>
-                  <SelectItem value="LARANJA">Laranja</SelectItem>
-                  <SelectItem value="VERDE">Verde</SelectItem>
-                  <SelectItem value="AZUL">Azul</SelectItem>
-                  <SelectItem value="ROXA">Roxa</SelectItem>
-                  <SelectItem value="MARROM">Marrom</SelectItem>
-                  <SelectItem value="PRETA">Preta</SelectItem>
-                  <SelectItem value="CORAL">Coral</SelectItem>
-                  <SelectItem value="VERMELHA">Vermelha</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div>
-              <Label htmlFor="team">Equipe</Label>
-              <Input
-                id="team"
-                value={team}
-                onChange={(e) => setTeam(e.target.value)}
-                placeholder="Digite o nome da sua equipe"
-                required
+              <FormField
+                control={form.control}
+                name="team"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-[10px] uppercase font-black tracking-[0.2em] text-muted-foreground ml-1">
+                      Equipe / Academia
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="SUA EQUIPE"
+                        className="bg-[#141414] border-white/5 rounded-none h-14 focus:border-primary/50 uppercase font-black tracking-tight text-lg placeholder:opacity-20 transition-all focus:ring-1 focus:ring-primary/20"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
 
-            <div>
-              <Label htmlFor="weight">Peso (kg)</Label>
-              <Input
-                id="weight"
-                type="number"
-                inputMode="decimal"
-                step="0.1"
-                min="10"
-                max="200"
-                value={weight}
-                onChange={(e) => setWeight(e.target.value)}
-                placeholder="Ex.: 75.5"
-                required
-              />
-            </div>
-
-            <Button type="submit" className="w-full">
-              Continuar no WhatsApp
-            </Button>
-          </form>
+              <Button
+                type="submit"
+                className="w-full bg-primary hover:bg-primary/90 text-black font-black uppercase h-16 tracking-[0.2em] rounded-none shadow-[0_0_40px_rgba(212,175,55,0.1)] active:scale-[0.98] transition-all text-lg group"
+              >
+                <span className="group-hover:translate-x-1 transition-transform inline-block mr-2">
+                  🥊
+                </span>
+                CONTINUAR NO WHATSAPP
+              </Button>
+            </form>
+          </Form>
         </CardContent>
       </Card>
     </div>
