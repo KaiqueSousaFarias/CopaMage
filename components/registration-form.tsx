@@ -30,6 +30,9 @@ const formSchema = z.object({
   weight: z.string().min(1, "Peso é obrigatório"),
   belt: z.string().min(1, "Graduação é obrigatória"),
   team: z.string().min(1, "Equipe é obrigatória"),
+  modality: z.enum(["CATEGORIA", "LUTA_CASADA", "AMBOS"], {
+    required_error: "Selecione a modalidade",
+  }),
 })
 
 interface RegistrationFormProps {
@@ -46,6 +49,7 @@ export function RegistrationForm({ isOpen, onClose }: RegistrationFormProps) {
       weight: "",
       belt: "",
       team: "",
+      modality: undefined,
     },
   })
 
@@ -65,7 +69,8 @@ export function RegistrationForm({ isOpen, onClose }: RegistrationFormProps) {
       `%0AData de Nascimento: ${encodeURIComponent(values.birthDate)}` +
       `%0AFaixa: ${encodeURIComponent(values.belt)}` +
       `%0AEquipe: ${encodeURIComponent(values.team)}` +
-      `%0APeso: ${encodeURIComponent(`${values.weight} kg`)}`
+      `%0APeso: ${encodeURIComponent(`${values.weight} kg`)}` +
+      `%0AModalidade: ${encodeURIComponent(values.modality)}`
 
     window.open(`${WHATSAPP_BASE_URL}?text=${message}`, "_blank")
 
@@ -237,6 +242,51 @@ export function RegistrationForm({ isOpen, onClose }: RegistrationFormProps) {
                         {...field}
                       />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="modality"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-[10px] uppercase font-black tracking-[0.2em] text-muted-foreground ml-1">
+                      Modalidade
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="bg-[#141414] border-white/5 rounded-none h-14 focus:border-primary/50 uppercase font-black tracking-widest transition-all focus:ring-1 focus:ring-primary/20">
+                          <SelectValue placeholder="SELECIONE A MODALIDADE" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="bg-[#0f0f0f] border-primary/20 rounded-none z-[120]">
+                        <SelectItem
+                          value="CATEGORIA"
+                          className="focus:bg-primary/20 focus:text-primary font-black uppercase tracking-widest text-xs py-3"
+                        >
+                          Categoria
+                        </SelectItem>
+
+                        <SelectItem
+                          value="LUTA_CASADA"
+                          className="focus:bg-primary/20 focus:text-primary font-black uppercase tracking-widest text-xs py-3"
+                        >
+                          Luta Casada
+                        </SelectItem>
+
+                        <SelectItem
+                          value="AMBOS"
+                          className="focus:bg-primary/20 focus:text-primary font-black uppercase tracking-widest text-xs py-3"
+                        >
+                          Ambos
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
