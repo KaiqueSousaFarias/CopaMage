@@ -190,7 +190,7 @@ export default function HomePage() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative group">
               <div className="absolute -inset-4 bg-primary/20 blur-3xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
-              <img src="/assets/jiu_jitsu_belt_gold_1769555775547.png" alt="Cinturão Campeão" className="relative z-10 w-full rounded-none border border-primary/20 shadow-2xl hover:scale-[1.02] transition-transform" />
+              <img src="/assets/cinturao.jpeg" alt="Cinturão Campeão" className="relative z-10 w-full rounded-none border border-primary/20 shadow-2xl hover:scale-[1.02] transition-transform" />
               <div className="ai-notice z-20">Imagens meramente ilustrativas</div>
               <div className="absolute top-4 right-4 z-20 bg-primary text-black font-black uppercase tracking-tighter text-2xl px-6 py-2">
                 🥇 Cinturão
