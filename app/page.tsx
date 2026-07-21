@@ -70,7 +70,7 @@ export default function HomePage() {
           </div>
 
           <h1 className="text-6xl md:text-9xl font-black mb-4 tracking-tighter uppercase italic leading-none animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            <span className="block text-white">7ª COPA MAGÉ</span>
+            <span className="block text-white">8ª COPA MAGÉ</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-primary">DE JIU-JITSU</span>
           </h1>
 
@@ -328,8 +328,8 @@ export default function HomePage() {
       <footer className="bg-[#0a0a0a] py-12 px-4 border-t border-white/5">
         <div className="container mx-auto text-center">
           <div className="mb-8">
-            <h3 className="font-black text-2xl uppercase tracking-tighter text-white mb-2 italic">7ª Copa Magé de Jiu-Jitsu</h3>
-            <p className="text-muted-foreground uppercase text-xs font-bold tracking-[0.3em]">21 de Abril • Poliesportivo de Mauá</p>
+            <h3 className="font-black text-2xl uppercase tracking-tighter text-white mb-2 italic">8ª Copa Magé de Jiu-Jitsu</h3>
+            <p className="text-muted-foreground uppercase text-xs font-bold tracking-[0.3em]">12 de Outubro • Poliesportivo de Mauá</p>
           </div>
           <div className="border-t border-white/5 pt-8">
             <p className="text-muted-foreground/40 text-[10px] uppercase font-bold tracking-widest">

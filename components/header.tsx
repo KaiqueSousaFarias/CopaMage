@@ -52,12 +52,12 @@ export function Header({ onOpenRegistration }: HeaderProps) {
                     <div className="w-10 h-10 rounded-sm overflow-hidden flex items-center justify-center">
                         <img
                             src="/image/hazaq-logo.png"
-                            alt="7ª Copa Magé"
+                            alt="8ª Copa Magé"
                             className="w-full h-full object-contain"
                         />
                     </div>
                     <div>
-                        <h1 className="font-bold text-xl uppercase tracking-tighter text-primary">7ª Copa Magé</h1>
+                        <h1 className="font-bold text-xl uppercase tracking-tighter text-primary">8ª Copa Magé</h1>
                         <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground">Jiu-Jitsu Championship</p>
                     </div>
                 </Link>
